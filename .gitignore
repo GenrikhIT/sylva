@@ -1,0 +1,18 @@
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Node / build
+node_modules/
+dist/
+build/
+.cache/
+.tmp/
+.next/
+out/
+coverage/
+
+# Env / misc
+.env
+*.log
