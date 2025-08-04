@@ -1,0 +1,263 @@
+/* Critical CSS - минимальный normalize и базовые стили */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Document */
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Body */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+}
+
+/* Container */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: 50px;
+}
+
+/* Typography - точечный сброс */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+p,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Navigation lists - без маркеров */
+.nav__list,
+.mobile-menu__list,
+.services__list,
+.faq__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+/* Images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-style: none;
+}
+
+/* Inline images in content */
+.content img,
+p img {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+/* Buttons - минимальные стили для видимости */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  color: inherit;
+}
+
+button::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/* Reset button styles for icon-only buttons */
+.burger,
+.modal__close,
+.project-card__link {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+/* Details/Summary */
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+  cursor: pointer;
+}
+
+/* Hidden elements */
+[hidden],
+.mobile-menu[aria-hidden="true"],
+.modal[aria-hidden="true"],
+#cookieNotice[hidden] {
+  display: none !important;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid;
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Smooth scroll for those who are ok with motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Basic header layout for first paint */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Hide mobile elements on desktop */
+.burger,
+.mobile-menu {
+  display: none;
+}
+
+/* Basic button styles */
+.btn {
+  display: inline-block;
+  padding: 0.75em 1.5em;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hero section minimal layout */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Basic responsive utilities */
+@media (max-width: 768px) {
+  .nav__list {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .hero__title {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+  }
+}

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Sylva Digital Agency - Разработка сайтов и цифровых решений</title>
+    <meta name="description"
+        content="Digital агентство Sylva - создаем цифровые продукты, которые ежедневно пользуются миллионы людей по всему миру. Разработка сайтов, приложений, брендинг.">
+    <meta name="keywords" content="digital agency, веб-разработка, дизайн, брендинг, создание сайтов">
+    <meta name="author" content="Sylva Digital Agency">
+
+    <!-- Open Graph / Facebook -->
+    <!-- <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sylva.agency/">
+    <meta property="og:title" content="Sylva Digital Agency - Разработка сайтов и цифровых решений">
+    <meta property="og:description" content="Digital агентство Sylva - создаем цифровые продукты для вашего бизнеса">
+    <meta property="og:image" content="/images/og-image.jpg"> -->
+
+    <!-- Twitter -->
+    <!-- <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sylva.agency/">
+    <meta property="twitter:title" content="Sylva Digital Agency">
+    <meta property="twitter:description"
+        content="Digital агентство Sylva - создаем цифровые продукты для вашего бизнеса">
+    <meta property="twitter:image" content="/images/twitter-image.jpg"> -->
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+
+    <!-- Critical CSS (только для первого экрана) -->
+    <link rel="stylesheet" href="/css/critical.css">
+
+    <!-- Preload важных ресурсов -->
+    <!-- <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin> -->
+
+    <!-- Остальные стили загружаются асинхронно -->
+    <!-- <link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/main.css">
+    </noscript> -->
+</head>
+
+<body>
+    <!-- Cookie Notice -->
+    <div class="cookie-notice" id="cookieNotice" role="dialog" aria-label="Уведомление о cookies" hidden>
+        <div class="cookie-notice__content">
+            <p>Мы используем cookies для улучшения работы сайта</p>
+            <button type="button" class="cookie-notice__accept" id="acceptCookies">Принять</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="/" class="logo" aria-label="Sylva Digital Agency">
+                    <svg width="143" height="66" viewBox="0 0 143 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M14.12 51.63C7.19 51.63 3.13 49.04 0.54 45.96L6.07 41.06C8.1 43.02 10.69 44.21 13.49 44.21C16.57 44.21 17.55 43.65 17.55 42.39C17.55 40.78 15.66 40.78 10.83 39.52C6.77 38.47 2.22 36.23 2.22 30C2.22 23.28 7.4 20.55 13.77 20.55C18.67 20.55 22.17 22.16 24.62 24.68L19.58 30.07C18.18 28.88 16.08 27.83 13.84 27.83C11.67 27.83 10.62 28.39 10.62 29.58C10.62 31.26 12.51 31.47 16.57 32.38C20.91 33.36 26.37 35.39 26.37 41.69C26.37 47.15 23.5 51.63 14.12 51.63ZM32.4693 65.84L40.2393 48.2L28.4093 21.18H38.8393L43.1093 32.66C44.1593 35.46 45.2093 40.36 45.2093 40.36C45.2093 40.36 46.1193 35.39 47.2393 32.66L51.8593 21.18H61.4493L41.9193 65.84H32.4693ZM66.0157 51V0.459996H75.3957V51H66.0157ZM96.1223 51.63L79.9523 21.18H90.3823L94.5823 30.07C95.9823 33.08 97.0323 37.98 97.0323 37.98C97.0323 37.98 98.0123 33.08 99.3423 30.07L103.402 21.18H112.992L97.0323 51.63H96.1223ZM133.141 33.29C133.001 29.86 131.321 28.32 128.171 28.32C124.601 28.32 122.711 29.86 121.381 31.05L116.131 25.45C118.931 22.72 122.081 20.55 129.081 20.55C136.711 20.55 142.521 24.68 142.521 34.06V51H133.141L133.351 46.87C131.111 50.3 128.521 51.63 124.531 51.63C119.071 51.63 114.031 49.18 114.031 42.25C114.031 35.88 118.861 33.29 126.211 33.29H133.141ZM133.141 38.89H126.701C124.321 38.89 123.271 39.94 123.271 41.62C123.271 43.3 124.671 44.28 127.331 44.28C131.181 44.28 133.141 42.6 133.141 40.08V38.89Z"
+                            fill="#03281D" />
+                    </svg>
+
+                </a>
+
+                <!-- Desktop Navigation -->
+                <ul class="nav__list">
+                    <li><a href="#portfolio" class="nav__link">портфолио</a></li>
+                    <li><a href="#prices" class="nav__link">цены</a></li>
+                    <li><a href="#about" class="nav__link">о нас</a></li>
+                    <li><a href="#contacts" class="nav__link">контакты</a></li>
+                </ul>
+
+                <!-- Mobile CTA Button -->
+                <a href="/order" class="btn btn--primary nav__cta-mobile">Заказать сайт</a>
+
+                <!-- Mobile Menu Button -->
+                <button type="button" class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false"
+                    aria-controls="mobileMenu">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M5.10433 7.29167C4.71756 7.29167 4.34662 7.44531 4.07313 7.7188C3.79964 7.99229 3.646 8.36323 3.646 8.75C3.646 9.13678 3.79964 9.50771 4.07313 9.7812C4.34662 10.0547 4.71756 10.2083 5.10433 10.2083H29.896C30.2828 10.2083 30.6537 10.0547 30.9272 9.7812C31.2007 9.50771 31.3543 9.13678 31.3543 8.75C31.3543 8.36323 31.2007 7.99229 30.9272 7.7188C30.6537 7.44531 30.2828 7.29167 29.896 7.29167H5.10433ZM3.646 17.5C3.646 17.1132 3.79964 16.7423 4.07313 16.4688C4.34662 16.1953 4.71756 16.0417 5.10433 16.0417H29.896C30.2828 16.0417 30.6537 16.1953 30.9272 16.4688C31.2007 16.7423 31.3543 17.1132 31.3543 17.5C31.3543 17.8868 31.2007 18.2577 30.9272 18.5312C30.6537 18.8047 30.2828 18.9583 29.896 18.9583H5.10433C4.71756 18.9583 4.34662 18.8047 4.07313 18.5312C3.79964 18.2577 3.646 17.8868 3.646 17.5ZM3.646 26.2515C3.646 25.8647 3.79964 25.4938 4.07313 25.2203C4.34662 24.9468 4.71756 24.7931 5.10433 24.7931H29.896C30.2828 24.7931 30.6537 24.9468 30.9272 25.2203C31.2007 25.4938 31.3543 25.8647 31.3543 26.2515C31.3543 26.6382 31.2007 27.0092 30.9272 27.2827C30.6537 27.5561 30.2828 27.7098 29.896 27.7098H5.10433C4.71756 27.7098 4.34662 27.5561 4.07313 27.2827C3.79964 27.0092 3.646 26.6382 3.646 26.2515Z"
+                            fill="black" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+                <ul class="mobile-menu__list">
+                    <li><a href="#portfolio" class="mobile-menu__link">портфолио</a></li>
+                    <li><a href="#prices" class="mobile-menu__link">цены</a></li>
+                    <li><a href="#about" class="mobile-menu__link">о нас</a></li>
+                    <li><a href="#contacts" class="mobile-menu__link">контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" aria-label="Главный экран">
+            <div class="container">
+                <h1 class="hero__title">
+                    Digital агентство Sylva<br>
+                    с системным подходом<br>
+                    для роста продаж.
+                </h1>
+                <p class="hero__subtitle">
+                    Создаём цифровые продукты, которыми ежедневно<br>
+                    пользуются миллионы людей по всему миру.
+                </p>
+                <a href="/order" class="btn btn--primary hero__cta">Заказать сайт</a>
+
+                <!-- 3D Sphere Container -->
+                <div class="hero__sphere" aria-hidden="true">
+                    <canvas id="sphereCanvas"></canvas>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <button type="button" class="scroll-down" aria-label="Прокрутить вниз">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 5v14m0 0l-7-7m7 7l7-7" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission" aria-label="Наша миссия">
+            <div class="container">
+                <h2 class="mission__title">
+                    Разрабатываем комплексную<br>
+                    визуальную коммуникацию <span class="mission__accent">для<br>
+                        брендов</span> от стратегии и<br>
+                    графической айдентики до<br>
+                    внедрения в <span class="mission__highlight">цифровую среду</span>.
+                </h2>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio" id="portfolio" aria-label="Наши проекты">
+            <div class="container">
+                <h2 class="section-title">Наши проекты</h2>
+                <p class="section-subtitle">Сайты для наших клиентов работают</p>
+
+                <div class="portfolio__grid">
+                    <!-- Project 1 -->
+                    <article class="project-card" data-modal="project-1">
+                        <button type="button" class="project-card__link" aria-label="Открыть проект MD Cosmoshop">
+                            <span class="project-card__image">
+                                <img src="/images/projects/md-cosmoshop.jpg" alt="MD Cosmoshop - сайт магазин"
+                                    loading="lazy" width="600" height="400">
+                            </span>
+                            <span class="project-card__content">
+                                <span class="project-card__title">MD Cosmoshop</span>
+                                <span class="project-card__description">Сайт-каталог для продажи косметических
+                                    препаратов</span>
+                                <span class="project-card__year">2024</span>
+                            </span>
+                        </button>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card" data-modal="project-2">
+                        <button type="button" class="project-card__link" aria-label="Открыть проект SHE студия">
+                            <span class="project-card__image">
+                                <img src="/images/projects/she-studio.jpg" alt="SHE студия по волосам" loading="lazy"
+                                    width="600" height="400">
+                            </span>
+                            <span class="project-card__content">
+                                <span class="project-card__title">SHE студия по волосам</span>
+                                <span class="project-card__description">Многофункциональный сайт салон по работе с
+                                    волосами</span>
+                                <span class="project-card__year">2023</span>
+                            </span>
+                        </button>
+                    </article>
+                </div>
+
+                <button type="button" class="btn btn--secondary portfolio__more" aria-label="Загрузить больше проектов">
+                    Загрузить больше
+                </button>
+            </div>
+        </section>
+
+        <!-- Prices Section -->
+        <section class="prices" id="prices" aria-label="Цены и услуги">
+            <div class="container">
+                <h2 class="section-title section-title--light">Цены</h2>
+                <p class="section-subtitle section-subtitle--light">за деньги, которые работают</p>
+
+                <div class="services">
+                    <div class="services__decoration" aria-hidden="true">
+                        <!-- Animated circles -->
+                        <div class="circle circle--1"></div>
+                        <div class="circle circle--2"></div>
+                        <div class="circle circle--3"></div>
+                    </div>
+
+                    <ul class="services__list">
+                        <li class="service-item">
+                            <h3 class="service-item__title">Разработка сайтов</h3>
+                            <button type="button" class="service-item__link" aria-label="Подробнее о разработке сайтов">
+                                <span class="sr-only">Подробнее</span>
+                            </button>
+                        </li>
+                        <li class="service-item">
+                            <h3 class="service-item__title">Разработка приложений</h3>
+                            <button type="button" class="service-item__link"
+                                aria-label="Подробнее о разработке приложений">
+                                <span class="sr-only">Подробнее</span>
+                            </button>
+                        </li>
+                        <li class="service-item">
+                            <h3 class="service-item__title">Диджитал маркетинг</h3>
+                            <button type="button" class="service-item__link"
+                                aria-label="Подробнее о диджитал маркетинге">
+                                <span class="sr-only">Подробнее</span>
+                            </button>
+                        </li>
+                        <li class="service-item">
+                            <h3 class="service-item__title">Брендинг</h3>
+                            <button type="button" class="service-item__link" aria-label="Подробнее о брендинге">
+                                <span class="sr-only">Подробнее</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <a href="/order" class="btn btn--outline prices__cta">Заказать сайт</a>
+                </div>
+
+                <div class="prices__footer">
+                    <h3 class="prices__footer-title">О нас</h3>
+                    <p class="prices__footer-text">
+                        Мы — ваш стратегический партнер в создании и развитии<br>
+                        бизнеса в интернете.
+                    </p>
+                    <p class="prices__footer-description">
+                        Помогаем сформулировать идею,<br>
+                        спроектировать и запустить цифровой<br>
+                        продукт — от первого наброска до<br>
+                        постоянной поддержки и доработок.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about" aria-label="О компании">
+            <div class="container">
+                <div class="about__content">
+                    <p class="about__text">
+                        Берём инициативу на себя, работаем<br>
+                        проактивно и комплексно. Развиваем ваш<br>
+                        онлайн-бизнес, усиливая позиции в сети<br>
+                        и повышая конверсию.
+                    </p>
+
+                    <a href="#" class="btn btn--ghost about__cta">Узнать больше</a>
+
+                    <div class="stats">
+                        <div class="stats__item">
+                            <span class="stats__number">20+</span>
+                            <span class="stats__label">Проектов запущено<br>с начала работы</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about__decoration" aria-hidden="true">
+                    <!-- Decorative circles -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq" id="faq" aria-label="Часто задаваемые вопросы">
+            <div class="container">
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-subtitle">ответы на все вопросы</p>
+
+                <div class="faq__list" role="list">
+                    <details class="faq-item">
+                        <summary class="faq-item__question">
+                            Сколько стоит создать сайт под ключ?
+                            <span class="faq-item__icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="faq-item__answer">
+                            <p>Стоимость разработки сайта зависит от сложности проекта, функциональности и сроков.
+                                Базовый сайт-визитка от 50 000 ₽, корпоративный сайт от 150 000 ₽, интернет-магазин от
+                                250 000 ₽.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-item__question">
+                            Сколько времени занимает разработка?
+                            <span class="faq-item__icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="faq-item__answer">
+                            <p>Сроки зависят от объема работ. Лендинг - 2-3 недели, корпоративный сайт - 1-2 месяца,
+                                интернет-магазин - от 2 месяцев.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-item__question">
+                            Сколько времени занимает разработка?
+                            <span class="faq-item__icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="faq-item__answer">
+                            <p>Мы предоставляем полный цикл разработки: от концепции до запуска. Также оказываем услуги
+                                технической поддержки и развития проекта.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-item__question">
+                            Вы работаете только на Tilda и no-code?
+                            <span class="faq-item__icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="faq-item__answer">
+                            <p>Нет, мы разрабатываем проекты любой сложности. Используем современные технологии: React,
+                                Vue, Node.js. Выбор платформы зависит от задач проекта.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-item__question">
+                            Вы берёте проекты с готовым дизайном?
+                            <span class="faq-item__icon" aria-hidden="true"></span>
+                        </summary>
+                        <div class="faq-item__answer">
+                            <p>Да, мы работаем как с нашим дизайном, так и реализуем готовые макеты. При необходимости
+                                можем доработать существующий дизайн.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer__content">
+                <h2 class="footer__title">Связаться с нами</h2>
+
+                <div class="footer__contacts">
+                    <a href="mailto:sylva.d.agency@gmail.com" class="footer__email">sylva.d.agency@gmail.com</a>
+                    <a href="tel:+79859110013" class="footer__phone">+7 985 911 00 13</a>
+                </div>
+
+                <div class="footer__bottom">
+                    <p class="footer__copyright">Политика конфиденциальности ID0998</p>
+                    <button type="button" class="footer__privacy" data-modal="privacy">
+                        Политика конфиденциальности
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__content">
+            <button type="button" class="modal__close" data-modal-close aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+            <div class="modal__body" id="modalContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/script.js" defer></script>
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Sylva Digital Agency",
+        "url": "https://sylva.agency",
+        "email": "sylva.d.agency@gmail.com",
+        "telephone": "+79859110013",
+        "description": "Digital агентство полного цикла. Разработка сайтов, приложений, брендинг.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "RU"
+        }
+    }
+    </script>
+</body>
+
+</html>
