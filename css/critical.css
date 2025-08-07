@@ -6,7 +6,29 @@
 *::after {
   box-sizing: border-box;
 }
-
+:root {
+  --color-primary: #03281d;
+  --color-secondary: #a47764;
+  --color-light: #f2eeec;
+  --offset-desktop: 50px; /* отступ для desktop */
+  --offset-mobile: 15px; /* отступ для mobile */
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/Inter-Regular.woff2") format("woff2"),
+    url("/assets/Inter-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* или auto, block, fallback, optional */
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/Nunito-ExtraLight.woff2") format("woff2"),
+    url("/assets/Nunito-ExtraLight.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* или auto, block, fallback, optional */
+}
 /* Document */
 html {
   line-height: 1.15;
@@ -17,11 +39,10 @@ html {
 /* Body */
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.5;
-  color: #212529;
+  line-height: 1.1;
+  color: var(--color-primary);
   background-color: #fff;
 }
 
@@ -91,12 +112,7 @@ button {
   font-size: inherit;
   line-height: inherit;
   margin: 0;
-  padding: 0.5em 1em;
   cursor: pointer;
-  background-color: transparent;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  color: inherit;
 }
 
 button::-moz-focus-inner {
@@ -202,40 +218,56 @@ summary {
 
 /* Basic header layout for first paint */
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  background: rgba(245, 244, 241, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  height: 97px;
+}
+.header .container {
+  height: 100%; /* занимает всю высоту header */
+  display: flex; /* делаем flex-контейнером */
+  align-items: center; /* центрируем по вертикали */
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   min-height: 60px;
 }
 
 .nav__list {
   display: flex;
-  gap: 2rem;
+  gap: 79px;
+}
+.nav__list li a {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+.nav__list li a:hover {
+  color: var(--color-secondary);
 }
 
 /* Hide mobile elements on desktop */
 .burger,
-.mobile-menu {
+.mobile-menu,
+.header .btn {
   display: none;
 }
 
 /* Basic button styles */
 .btn {
   display: inline-block;
-  padding: 0.75em 1.5em;
-  border: 2px solid currentColor;
-  border-radius: 4px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 /* Hero section minimal layout */
@@ -245,6 +277,83 @@ summary {
   align-items: center;
   position: relative;
   overflow: hidden;
+}
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-image: url("/images/background-first-screen2.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%; /* высота 100%, ширина автоматически */
+  background-position: center;
+}
+.hero__title {
+  color: var(--color-light);
+  font-family: "Inter", sans-serif;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 199px;
+}
+
+.hero__logo {
+  display: inline-block;
+  vertical-align: -20px; /* выравнивание по центру относительно текста */
+  height: 60px; /* или подогнать под высоту текста */
+  width: auto;
+}
+.hero__subtitle {
+  color: var(--color-light);
+  font-family: "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  margin: 25px 0;
+}
+.hero__cta {
+  margin: 0 auto;
+  color: var(--color-light);
+  font-family: "Inter", sans-serif;
+  font-size: 1.375rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+  height: 44px;
+  width: 182px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+/* Scroll down arrow */
+.scroll-down {
+  display: block;
+  margin: 25px auto 0 auto;
+}
+/* Social media links */
+.hero__social-media {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--offset-desktop);
+}
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  list-style: none;
+}
+.social-links a:hover path {
+  fill: var(--color-secondary);
 }
 
 /* Basic responsive utilities */
