@@ -1,7 +1,9 @@
 /* ========================================
    MISSION SECTION
    ======================================== */
-
+/* * {
+  outline: 1px solid red;
+} */
 .mission {
   padding: 50px 0;
   background-color: #fff;
@@ -26,9 +28,9 @@
   font-style: italic;
   font-weight: 400;
 }
-.mission__icon--brands {
+.mission__icon--brands svg {
   display: inline-block;
-  vertical-align: -18px; /* выравнивание по центру относительно текста */
+  vertical-align: -14px; /* выравнивание по центру относительно текста */
 }
 .mission__bold {
   font-weight: 700;
@@ -106,23 +108,62 @@
   height: 44px;
   width: 247px;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  cursor: pointer; /* добавил для кнопки */
+}
+
+.portfolio__load-more::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #03281d;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.portfolio__load-more span {
+  position: relative;
+  z-index: 2;
+}
+
+.portfolio__load-more:hover {
+  border-radius: 30px;
+}
+
+.portfolio__load-more:hover::before {
+  transform: translateY(0);
 }
 /* Prices section styles */
+/* ========================================
+   PRICES SECTION STYLES
+   ======================================== */
 .prices {
   padding: 43px 0;
   color: var(--color-light);
   background-color: var(--color-primary);
 }
+
 .prices .section-subtitle {
   margin-bottom: 72px;
 }
+
 .prices__inner {
   display: flex;
 }
+
 .prices__decor,
 .prices__accordion {
   width: 50%;
 }
+
+/* ===== Accordion Header ===== */
 .prices__header {
   font-size: 2.5rem;
   display: flex;
@@ -130,19 +171,160 @@
   justify-content: space-between;
   align-items: center;
   color: var(--color-light);
-  background-color: var(--color-primary);
+  background-color: transparent;
   padding: 0;
   border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
 }
+
+/* ===== Accordion Icon Container ===== */
 .prices__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.3s ease;
 }
+
+/* ===== Accordion Item States ===== */
+.prices__item {
+  padding-bottom: 25px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(164, 119, 100, 0.35);
+}
+
+/* ===== Panel Animation ===== */
 .prices__panel {
-  /* display: none; */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  opacity: 0;
   margin-top: 31px;
 }
+
+.prices__panel.is-open {
+  max-height: 1000px;
+  opacity: 1;
+  padding-top: 20px;
+}
+
+/* ===== SVG Icon States ===== */
+/* Base state (closed) */
+.prices__icon svg path:first-child,
+.prices__icon svg path:nth-child(3),
+.prices__icon svg path:last-child {
+  fill: #f2eeec;
+  transition: fill 0.3s ease;
+}
+
+.prices__icon svg path:nth-child(2) {
+  fill: #a47764;
+  fill-opacity: 0.35;
+  transition: fill 0.3s ease, fill-opacity 0.3s ease;
+}
+
+/* Hover state (closed item) */
+.prices__item:not(.is-active)
+  .prices__header:hover
+  .prices__icon
+  svg
+  path:first-child,
+.prices__item:not(.is-active)
+  .prices__header:hover
+  .prices__icon
+  svg
+  path:nth-child(3),
+.prices__item:not(.is-active)
+  .prices__header:hover
+  .prices__icon
+  svg
+  path:last-child {
+  fill: #a47764;
+}
+
+.prices__item:not(.is-active)
+  .prices__header:hover
+  .prices__icon
+  svg
+  path:nth-child(2) {
+  fill: #f2eeec;
+  fill-opacity: 1;
+}
+
+/* Active state (open item) */
+.prices__item.is-active .prices__icon svg path:first-child,
+.prices__item.is-active .prices__icon svg path:nth-child(3),
+.prices__item.is-active .prices__icon svg path:last-child {
+  fill: #a47764;
+}
+
+.prices__item.is-active .prices__icon svg path:nth-child(2) {
+  fill: #f2eeec;
+  fill-opacity: 1;
+}
+
+.prices__item.is-active .prices__icon {
+  transform: rotate(180deg);
+}
+
+/* ===== Circle Decoration Styles ===== */
+.js-circles circle {
+  stroke: currentColor;
+  opacity: 0.2;
+  transition: stroke 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect for circles */
+.prices__item:not(.is-active)
+  .prices__header:hover
+  ~ .js-circles
+  circle:nth-child(1) {
+  opacity: 0.4;
+}
+
+.prices__item:nth-child(2):not(.is-active)
+  .prices__header:hover
+  ~ .js-circles
+  circle:nth-child(2) {
+  opacity: 0.4;
+}
+
+.prices__item:nth-child(3):not(.is-active)
+  .prices__header:hover
+  ~ .js-circles
+  circle:nth-child(3) {
+  opacity: 0.4;
+}
+
+.prices__item:nth-child(4):not(.is-active)
+  .prices__header:hover
+  ~ .js-circles
+  circle:nth-child(4) {
+  opacity: 0.4;
+}
+
+/* Active state for circles */
+.prices__item.is-active .js-circles circle:nth-child(1) {
+  stroke: #a47764;
+  opacity: 1;
+}
+
+.prices__item:nth-child(2).is-active .js-circles circle:nth-child(2) {
+  stroke: #a47764;
+  opacity: 1;
+}
+
+.prices__item:nth-child(3).is-active .js-circles circle:nth-child(3) {
+  stroke: #a47764;
+  opacity: 1;
+}
+
+.prices__item:nth-child(4).is-active .js-circles circle:nth-child(4) {
+  stroke: #a47764;
+  opacity: 1;
+}
+
 .prices__description {
   width: 366px;
   margin-left: auto;
@@ -208,7 +390,7 @@
   height: 260px;
   margin-inline: auto;
 }
-.prices__decor .prices__cta {
+.prices__cta {
   width: 182px;
   height: 44px;
   display: block;
@@ -224,6 +406,7 @@
   margin-bottom: 25px;
   margin-inline: auto;
 }
+
 /*About Section styles */
 .about {
   padding: 56px 0 83px 0;
@@ -256,6 +439,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 25px;
+  cursor: pointer;
 }
 .stats__item {
   display: flex;
@@ -269,7 +453,10 @@
 .stats__label {
   text-align: right;
 }
-/*Faq Section styles */
+
+/* ========================================
+   FAQ SECTION STYLES (УПРОЩЕННАЯ ВЕРСИЯ КАК В PRICES)
+   ======================================== */
 .faq {
   margin: 100px 0;
 }
@@ -289,6 +476,7 @@
   margin-bottom: 5px;
 }
 .faq__question {
+  padding: 0;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -296,6 +484,9 @@
   align-items: center;
   border: none;
   background-color: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
 }
 .faq__decor {
   width: 50%;
@@ -304,8 +495,97 @@
 .faq__decor svg {
   width: 420px;
   height: 260px;
-  margin: auto;
+  margin-left: auto;
+  margin-top: 38px;
 }
+
+/* ===== FAQ Panel Animation (упрощено как в Prices) ===== */
+.faq__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  opacity: 0;
+  margin-top: 31px;
+}
+
+.faq__panel.is-open {
+  max-height: 1000px;
+  opacity: 1;
+  padding-top: 20px;
+}
+
+/* ===== FAQ Icon Animation ===== */
+.faq__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.faq__icon svg {
+  display: block;
+}
+
+.faq__item.is-active .faq__icon {
+  transform: rotate(180deg);
+}
+
+/* ===== FAQ Icon States ===== */
+/* Base state (closed) */
+.faq__icon svg path:first-child,
+.faq__icon svg path:nth-child(3),
+.faq__icon svg path:last-child {
+  fill: #03281d;
+  transition: fill 0.3s ease;
+}
+
+.faq__icon svg path:nth-child(2) {
+  fill: #03281d;
+  fill-opacity: 0.4;
+  transition: fill 0.3s ease, fill-opacity 0.3s ease;
+}
+
+/* Hover state (closed item) */
+.faq__item:not(.is-active) .faq__question:hover .faq__icon svg path:first-child,
+.faq__item:not(.is-active)
+  .faq__question:hover
+  .faq__icon
+  svg
+  path:nth-child(3),
+.faq__item:not(.is-active) .faq__question:hover .faq__icon svg path:last-child {
+  fill: #a47764;
+}
+
+.faq__item:not(.is-active)
+  .faq__question:hover
+  .faq__icon
+  svg
+  path:nth-child(2) {
+  fill: #ffffff;
+  fill-opacity: 1;
+}
+
+/* Active state (open item) */
+.faq__item.is-active .faq__icon svg path:first-child,
+.faq__item.is-active .faq__icon svg path:nth-child(3),
+.faq__item.is-active .faq__icon svg path:last-child {
+  fill: #a47764;
+}
+
+.faq__item.is-active .faq__icon svg path:nth-child(2) {
+  fill: #ffffff;
+  fill-opacity: 1;
+}
+
+/* ===== Circle States (управляется через JS) ===== */
+.faq__decor circle {
+  stroke: currentColor;
+  opacity: 0.2;
+  transition: stroke 0.3s ease, opacity 0.3s ease;
+}
+/* ========================================
+   FOOTER STYLES
+   ======================================== */
 /* Footer styles */
 .footer {
   padding: 25px 0;
@@ -344,6 +624,97 @@
   margin-left: auto;
   margin-bottom: 25px;
 }
+
+/* ========================================
+   HEADER SCROLL STYLES
+   ======================================== */
+/* Базовый («по умолчанию») вид для mission, portfolio, faq */
+header.header--default {
+  background-color: #ffffff;
+  border-bottom: 1px solid #a47764;
+}
+header.header--default,
+header.header--default a,
+header.header--default button {
+  color: #03281d;
+}
+header.header--default svg path {
+  fill: #03281d;
+}
+
+/* Вид для hero */
+header.header--hero {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-bottom: none;
+}
+header.header--hero,
+header.header--hero a,
+header.header--hero button {
+  color: #03281d;
+}
+header.header--hero svg path {
+  fill: #03281d;
+}
+
+/* Вид для prices и about */
+header.header--prices {
+  background-color: #03281d;
+  border-bottom: 1px solid #a47764;
+}
+header.header--prices,
+header.header--prices a,
+header.header--prices button {
+  color: #f2eeec;
+}
+header.header--prices svg path {
+  fill: #f2eeec;
+}
+
+/* ========================================
+   BUTTON HOVER EFFECTS
+   ======================================== */
+/* Эффект для кнопок */
+.prices__cta,
+.about__cta {
+  position: relative;
+  overflow: hidden;
+  transition: border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+}
+
+.prices__cta::before,
+.about__cta::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(164, 119, 100, 1);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.prices__cta span,
+.about__cta span {
+  position: relative;
+  z-index: 2;
+}
+
+.prices__cta:hover,
+.about__cta:hover {
+  border-radius: 30px;
+}
+
+.prices__cta:hover::before,
+.about__cta:hover::before {
+  transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
 /* Tablet styles (1024px and below) */
 @media (max-width: 1024px) {
   .mission {
@@ -395,6 +766,7 @@
 /* Mobile styles (480px and below) */
 @media (max-width: 480px) {
 }
+
 /* Дополнительная адаптивность для очень маленьких экранов */
 @media (max-width: 360px) {
   .mission {
@@ -403,5 +775,15 @@
 
   .mission__title {
     font-size: 22px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .faq__panel,
+  .prices__panel,
+  .faq__icon,
+  .prices__icon {
+    transition: none !important;
   }
 }

@@ -223,7 +223,6 @@ summary {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(245, 244, 241, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   height: 97px;
@@ -249,8 +248,7 @@ summary {
 .nav__list li a {
   font-size: 1.125rem;
   font-weight: 400;
-  color: var(--color-primary);
-  transition: color 0.3s ease;
+  transition: color 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
 }
 .nav__list li a:hover {
   color: var(--color-secondary);
@@ -333,6 +331,37 @@ summary {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  text-decoration: none;
+}
+
+.hero__cta::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(164, 119, 100, 1);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.hero__cta span {
+  position: relative;
+  z-index: 2;
+}
+
+.hero__cta:hover {
+  border-radius: 30px;
+}
+
+.hero__cta:hover::before {
+  transform: translateY(0);
 }
 /* Scroll down arrow */
 .scroll-down {
@@ -347,6 +376,8 @@ summary {
   right: var(--offset-desktop);
 }
 .social-links {
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -354,6 +385,39 @@ summary {
 }
 .social-links a:hover path {
   fill: var(--color-secondary);
+}
+@keyframes heartbeat {
+  0%,
+  20%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  15%,
+  35% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes colorPulse {
+  0%,
+  20%,
+  40%,
+  100% {
+    fill: #f2eeec;
+  }
+  15%,
+  35% {
+    fill: #a47764;
+  }
+}
+
+.scroll-down {
+  animation: heartbeat 4s cubic-bezier(0.24, 0.69, 0.33, 0.93) infinite;
+}
+
+.scroll-down path {
+  animation: colorPulse 4s cubic-bezier(0.24, 0.69, 0.33, 0.93) infinite;
 }
 
 /* Basic responsive utilities */

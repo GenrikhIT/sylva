@@ -35,17 +35,85 @@
     <!-- Critical CSS (только для первого экрана) -->
     <link rel="stylesheet" href="/css/critical.css">
     <link rel="stylesheet" href="/css/main.css">
-    <!-- Preload важных ресурсов -->
-    <!-- <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin> -->
+    <!-- Pre важных ресурсов -->
+    <!-- <link rel="pre" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin> -->
 
     <!-- Остальные стили загружаются асинхронно -->
-    <link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="pre" href="/css/main.css" as="style" on="this.on=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/css/main.css">
     </noscript>
+    <style>
+        /* Coming Soon Overlay - удалите этот блок когда не нужен */
+        .coming-soon-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #03281D 0%, #1a5a3e 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F2EEEC;
+        }
+
+        .coming-soon-content {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .coming-soon-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .coming-soon-subtitle {
+            font-size: 1.2rem;
+            opacity: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: transparent;
+            font-size: 12px;
+            opacity: 0.2;
+            cursor: pointer;
+            padding: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-btn:hover {
+            opacity: 0.6;
+        }
+
+        .coming-soon-overlay.hidden {
+            display: none;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Coming Soon Overlay - просто удалите этот div когда не нужен -->
+    <div class="coming-soon-overlay" id="comingSoon">
+        <div class="coming-soon-content">
+            <h1 class="coming-soon-title">Coming Soon</h1>
+            <p class="coming-soon-subtitle">Сайт скоро будет доступен</p>
+        </div>
+        <button class="close-btn" onclick="hideComing()">войти</button>
+    </div>
     <!-- Cookie Notice -->
     <div class="cookie-notice" id="cookieNotice" role="dialog" aria-label="Уведомление о cookies" hidden>
         <div class="cookie-notice__content">
@@ -55,7 +123,7 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header header--default">
         <div class="container">
             <nav class="nav" aria-label="Основная навигация">
                 <a href="/" class="logo" aria-label="Sylva Digital Agency">
@@ -142,18 +210,16 @@
                     Создаём цифровые продукты, которыми ежедневно<br>
                     пользуются миллионы людей по всему миру.
                 </p>
-                <a href="/order" class="btn btn--primary hero__cta">Заказать сайт</a>
+                <a href="/order" class="btn btn--primary hero__cta"><span>Заказать сайт</span></a>
 
                 <!-- Scroll Indicator -->
                 <svg class="scroll-down" width="100" height="100" viewBox="0 0 100 100" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
-                        d="M50 16C68.8 16 84 31.2 84 50C84 68.8 68.8 84 50 84C31.2 84 16 68.8 16 50C16 31.2 31.2 16 50 16ZM50 80C66.6 80 80 66.6 80 50C80 33.4 66.6 20 50 20C33.4 20 20 33.4 20 50C20 66.6 33.4 80 50 80Z"
-                        fill="#F2EEEC" />
+                        d="M50 16C68.8 16 84 31.2 84 50C84 68.8 68.8 84 50 84C31.2 84 16 68.8 16 50C16 31.2 31.2 16 50 16ZM50 80C66.6 80 80 66.6 80 50C80 33.4 66.6 20 50 20C33.4 20 20 33.4 20 50C20 66.6 33.4 80 50 80Z" />
                     <path
-                        d="M33.3984 46.5998L49.9984 63.1998L66.5984 46.5998L69.3984 49.3998L49.9984 68.7998L30.5984 49.3998L33.3984 46.5998Z"
-                        fill="#F2EEEC" />
-                    <path d="M52 66H48L48 32H52L52 66Z" fill="#F2EEEC" />
+                        d="M33.3984 46.5998L49.9984 63.1998L66.5984 46.5998L69.3984 49.3998L49.9984 68.7998L30.5984 49.3998L33.3984 46.5998Z" />
+                    <path d="M52 66H48L48 32H52L52 66Z" />
                 </svg>
                 <nav class="hero__social-media" aria-label="Социальные сети">
                     <ul class="social-links">
@@ -249,8 +315,6 @@
                                 </p>
                             </div>
                         </div>
-                        <a href="https://md-cosmoshop.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <!-- Проект 2 (видимый) -->
@@ -263,8 +327,6 @@
                                 </p>
                             </div>
                         </div>
-                        <a href="https://she-studio.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <!-- Проект 3 (видимый) -->
@@ -277,8 +339,6 @@
                                     конструкций</p>
                             </div>
                         </div>
-                        <a href="https://roof-solutions.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <!-- Проект 4 (видимый) -->
@@ -290,8 +350,6 @@
                                 <p class="portfolio__description">Каталог продукции премиум-уровня с интеграцией CRM</p>
                             </div>
                         </div>
-                        <a href="https://dikiy-rybny.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <!-- скрытые (display: none) -->
@@ -303,8 +361,6 @@
                                 <p class="portfolio__description">Интернет-магазин кастомных товаров для собак</p>
                             </div>
                         </div>
-                        <a href="https://aiadog.com" target="_blank" rel="noopener" class="portfolio__site-link">Перейти
-                            на сайт</a>
                     </article>
 
                     <article class="portfolio__item" style="display: none;" role="listitem">
@@ -315,8 +371,6 @@
                                 <p class="portfolio__description">Лендинг школы косметологии в Батуми</p>
                             </div>
                         </div>
-                        <a href="https://academy-cosmetologic.ge" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <article class="portfolio__item" style="display: none;" role="listitem">
@@ -327,8 +381,6 @@
                                 <p class="portfolio__description">Каталог деревянной мебели с фильтрацией</p>
                             </div>
                         </div>
-                        <a href="https://furniture-ekater.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
 
                     <article class="portfolio__item" style="display: none;" role="listitem">
@@ -339,12 +391,11 @@
                                 <p class="portfolio__description">Лендинг приложения по доставке еды</p>
                             </div>
                         </div>
-                        <a href="https://food-delivery-app.ru" target="_blank" rel="noopener"
-                            class="portfolio__site-link">Перейти на сайт</a>
                     </article>
                 </div>
 
-                <button type="button" class="btn btn--secondary portfolio__load-more">Загрузить больше</button>
+                <button type="button" class="btn btn--secondary portfolio__load-more"><span>Загрузить
+                        больше</span></button>
             </div>
         </section>
 
@@ -367,7 +418,7 @@
                             <circle cx="210" cy="130" r="129.5" stroke="currentColor" opacity="0.2"></circle>
                             <circle cx="250" cy="130" r="129.5" stroke="currentColor" opacity="0.2"></circle>
                         </svg>
-                        <a href="/order" class="btn btn--outline prices__cta">Заказать сайт</a>
+                        <a href="/order" class="btn btn--outline prices__cta"><span>Заказать сайт</span></a>
                     </div>
 
                     <!-- Accordion of services & prices -->
@@ -394,7 +445,8 @@
 
                                 </span>
                             </button>
-                            <div id="service-1" class="prices__panel" role="tabpanel" aria-labelledby="tab-service-1">
+                            <div id="service-1" class="prices__panel" role="tabpanel" aria-labelledby="tab-service-1"
+                                hidden>
                                 <p class="prices__description">
                                     После получения оплаты мы приступаем к разработке всех страниц. По завершении
                                     согласовываем видеозвонок и презентуем дизайн. После звонка фиксируем результаты
@@ -448,7 +500,35 @@
                             </button>
                             <div id="service-2" class="prices__panel" role="tabpanel" aria-labelledby="tab-service-2"
                                 hidden>
-                                <!-- Здесь будет описание и таблица -->
+                                <p class="prices__description">
+                                    После получения оплаты мы приступаем к разработке всех страниц. По завершении
+                                    согласовываем видеозвонок и презентуем дизайн. После звонка фиксируем результаты
+                                    письмом на электронную почту, просим утвердить этап или внести правки.
+                                </p>
+                                <table class="prices__table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Лендинг</td>
+                                            <td>от 85 000</td>
+                                            <td>от 12 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сайт-каталог</td>
+                                            <td>от 135 000</td>
+                                            <td>от 16 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Корпоративный сайт</td>
+                                            <td>от 155 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Интернет-магазин</td>
+                                            <td>от 185 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -473,7 +553,35 @@
                             </button>
                             <div id="service-3" class="prices__panel" role="tabpanel" aria-labelledby="tab-service-3"
                                 hidden>
-                                <!-- Здесь будет описание и таблица -->
+                                <p class="prices__description">
+                                    После получения оплаты мы приступаем к разработке всех страниц. По завершении
+                                    согласовываем видеозвонок и презентуем дизайн. После звонка фиксируем результаты
+                                    письмом на электронную почту, просим утвердить этап или внести правки.
+                                </p>
+                                <table class="prices__table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Лендинг</td>
+                                            <td>от 85 000</td>
+                                            <td>от 12 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сайт-каталог</td>
+                                            <td>от 135 000</td>
+                                            <td>от 16 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Корпоративный сайт</td>
+                                            <td>от 155 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Интернет-магазин</td>
+                                            <td>от 185 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -498,7 +606,35 @@
                             </button>
                             <div id="service-4" class="prices__panel" role="tabpanel" aria-labelledby="tab-service-4"
                                 hidden>
-                                <!-- Здесь будет описание и таблица -->
+                                <p class="prices__description">
+                                    После получения оплаты мы приступаем к разработке всех страниц. По завершении
+                                    согласовываем видеозвонок и презентуем дизайн. После звонка фиксируем результаты
+                                    письмом на электронную почту, просим утвердить этап или внести правки.
+                                </p>
+                                <table class="prices__table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Лендинг</td>
+                                            <td>от 85 000</td>
+                                            <td>от 12 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сайт-каталог</td>
+                                            <td>от 135 000</td>
+                                            <td>от 16 дней</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Корпоративный сайт</td>
+                                            <td>от 155 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Интернет-магазин</td>
+                                            <td>от 185 000</td>
+                                            <td>от 21 дня</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -523,9 +659,12 @@
                         Берём инициативу на себя, работаем проактивно и комплексно. Развиваем ваш онлайн-бизнес,
                         усиливая позиции в сети и повышая конверсию.
                     </p>
-
-                    <a href="#" class="btn btn--ghost about__cta">Узнать больше</a>
-
+                    <p class="about__text" style="display: none;">
+                        Про нас новый текст
+                    </p>
+                    <button type="button" class="btn btn--ghost about__cta">
+                        <span>Узнать больше</span>
+                    </button>
                     <div class="stats">
                         <div class="stats__item">
                             <span class="stats__number">20+</span>
@@ -550,7 +689,7 @@
                     <!-- Accordion -->
                     <ul class="faq__list" role="tablist">
                         <li class="faq__item">
-                            <button class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-1"
+                            <div class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-1"
                                 id="tab-faq-1">
                                 Сколько стоит создать сайт под ключ?
                                 <span class="faq__icon" aria-hidden="true"><svg width="50" height="50"
@@ -567,14 +706,14 @@
                                         <path d="M26 33H24L24 16H26L26 33Z" fill="#03281D" />
                                     </svg>
                                 </span>
-                            </button>
-                            <div id="faq-1" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-1" hidden>
+                            </div>
+                            <div id="faq-1" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-1">
                                 <p>Здесь ответ на вопрос</p>
                             </div>
                         </li>
 
                         <li class="faq__item">
-                            <button class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-2"
+                            <div class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-2"
                                 id="tab-faq-2">
                                 Сколько времени занимает разработка?
                                 <span class="faq__icon" aria-hidden="true"><svg width="50" height="50"
@@ -591,14 +730,14 @@
                                         <path d="M26 33H24L24 16H26L26 33Z" fill="#03281D" />
                                     </svg>
                                 </span>
-                            </button>
-                            <div id="faq-2" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-2" hidden>
+                            </div>
+                            <div id="faq-2" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-2">
                                 <p>Здесь ответ на вопрос</p>
                             </div>
                         </li>
 
                         <li class="faq__item">
-                            <button class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-3"
+                            <div class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-3"
                                 id="tab-faq-3">
                                 Сколько времени занимает запуск проекта?
                                 <span class="faq__icon" aria-hidden="true"><svg width="50" height="50"
@@ -615,14 +754,14 @@
                                         <path d="M26 33H24L24 16H26L26 33Z" fill="#03281D" />
                                     </svg>
                                 </span>
-                            </button>
-                            <div id="faq-3" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-3" hidden>
+                            </div>
+                            <div id="faq-3" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-3">
                                 <p>Здесь ответ на вопрос</p>
                             </div>
                         </li>
 
                         <li class="faq__item">
-                            <button class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-4"
+                            <div class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-4"
                                 id="tab-faq-4">
                                 Вы работаете только на Tilda и no-code?
                                 <span class="faq__icon" aria-hidden="true"><svg width="50" height="50"
@@ -639,14 +778,14 @@
                                         <path d="M26 33H24L24 16H26L26 33Z" fill="#03281D" />
                                     </svg>
                                 </span>
-                            </button>
-                            <div id="faq-4" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-4" hidden>
+                            </div>
+                            <div id="faq-4" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-4">
                                 <p>Здесь ответ на вопрос</p>
                             </div>
                         </li>
 
                         <li class="faq__item">
-                            <button class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-5"
+                            <div class="faq__question" role="tab" aria-expanded="false" aria-controls="faq-5"
                                 id="tab-faq-5">
                                 Вы берёте проекты с готовым дизайном?
                                 <span class="faq__icon" aria-hidden="true"><svg width="50" height="50"
@@ -663,8 +802,8 @@
                                         <path d="M26 33H24L24 16H26L26 33Z" fill="#03281D" />
                                     </svg>
                                 </span>
-                            </button>
-                            <div id="faq-5" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-5" hidden>
+                            </div>
+                            <div id="faq-5" class="faq__panel" role="tabpanel" aria-labelledby="tab-faq-5">
                                 <p>Здесь ответ на вопрос</p>
                             </div>
                         </li>
@@ -765,6 +904,14 @@
             "addressCountry": "RU"
         }
     }
+    </script>
+    <script>
+        function hideComing() {
+            document.getElementById('comingSoon').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }
+
+        // Удалить три фрагмента style div script
     </script>
 </body>
 
