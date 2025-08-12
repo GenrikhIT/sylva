@@ -76,6 +76,7 @@
 .portfolio__item {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .portfolio__image {
   width: 100%;
@@ -83,6 +84,11 @@
   border-radius: 16px;
   margin-bottom: 15px;
   background-color: var(--color-light);
+  transition: transform 0.3s ease;
+}
+.portfolio__image:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
 }
 .portfolio__details {
   width: 500px;
@@ -710,6 +716,248 @@ header.header--prices svg path {
 .prices__cta:hover::before,
 .about__cta:hover::before {
   transform: translateY(0);
+}
+
+/* Cookie Notice Styles */
+.cookie-notice {
+  position: fixed;
+  right: 50px;
+  bottom: 10px;
+  width: 562px;
+  padding: 10px 50px;
+  background: rgba(164, 119, 100, 0.2);
+  backdrop-filter: blur(20.6px);
+  border-radius: 20px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.cookie-notice[hidden] {
+  display: none;
+}
+
+.cookie-notice__content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.cookie-notice__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.1;
+  color: #03281d;
+}
+
+.cookie-notice__buttons {
+  display: flex;
+  gap: 64px;
+  align-items: left;
+}
+
+.cookie-notice__accept {
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cookie-notice__accept:hover {
+  color: #a47764;
+}
+
+.cookie-notice__more {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cookie-notice__more:hover {
+  color: #a47764;
+}
+
+/* Projects styles */
+.portfolio__image {
+  position: relative;
+}
+[data-modal="project-1"] .portfolio__image {
+  background-image: url("/assets/MD/MDCosmo.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+[data-modal="project-1"] .portfolio__image .image_1 {
+  position: absolute;
+  top: 9px;
+  left: 18px;
+  width: 222px;
+  height: 59px;
+  object-fit: cover;
+}
+[data-modal="project-1"] .portfolio__image .image_2 {
+  position: absolute;
+  top: 30px;
+  left: 340px;
+  width: 49px;
+  height: 16px;
+  object-fit: cover;
+}
+[data-modal="project-1"] .portfolio__image .image_3 {
+  position: absolute;
+  top: 153px;
+  left: 18px;
+  width: 145px;
+  height: 42px;
+  object-fit: cover;
+}
+/* Project 2 */
+[data-modal="project-2"] .portfolio__image {
+  background-color: #f7f3ef;
+}
+[data-modal="project-2"] .portfolio__image .image_1 {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  width: 162px;
+  height: 70px;
+}
+[data-modal="project-2"] .portfolio__image .image_2 {
+  position: absolute;
+  top: 47px;
+  left: 304px;
+  width: 52px;
+  height: 16px;
+}
+[data-modal="project-2"] .portfolio__image .image_3 {
+  position: absolute;
+  top: 161px;
+  left: 25px;
+  width: 148px;
+  height: 48px;
+  object-fit: contain;
+}
+[data-modal="project-2"] .portfolio__image .image_4 {
+  position: absolute;
+  top: 193px;
+  left: 36px;
+  width: 312px;
+  height: 169px;
+}
+[data-modal="project-2"] .portfolio__image .image_5 {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 305px;
+  height: 370px;
+  object-fit: cover;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cookie-notice {
+    right: 20px;
+    bottom: 20px;
+    width: calc(100vw - 40px);
+    max-width: 400px;
+    padding: 20px 30px;
+  }
+
+  .cookie-notice__content {
+    gap: 20px;
+  }
+
+  .cookie-notice__buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cookie-notice__accept {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* ===== Modal Base ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  /* скрытое базовое состояние без display:none — нужно для плавных анимаций */
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal__dialog {
+  position: relative;
+  max-width: 960px;
+  width: min(90vw, 960px);
+  max-height: 90vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  will-change: opacity, transform;
+}
+
+/* Кнопка закрытия — фиксированная в правом верхнем углу вьюпорта */
+.modal__close {
+  position: fixed;
+  top: 16px;
+  right: calc(16px + var(--sbw, 0px)); /* с учётом ширины скроллбара */
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  background: #1f1f1f;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Открытое состояние */
+.modal.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+.modal.is-open .modal__overlay {
+  opacity: 1;
+}
+.modal.is-open .modal__dialog {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Блокировка скролла документа */
+body.modal-open {
+  overflow: hidden;
+  padding-right: var(
+    --sbw,
+    0px
+  ); /* компенсация дергания из-за исчезновения скроллбара */
+}
+
+/* Вежливость к системным настройкам */
+@media (prefers-reduced-motion: reduce) {
+  .modal__overlay,
+  .modal__dialog {
+    transition: none !important;
+  }
 }
 
 /* ========================================

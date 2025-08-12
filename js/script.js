@@ -254,4 +254,339 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
   initFAQAccordion();
-});
+
+  // ===== Cookie Notice =====
+  class CookieNotice {
+    constructor() {
+      this.notice = document.getElementById("cookieNotice");
+      this.acceptBtn = document.getElementById("acceptCookies");
+      this.cookieName = "cookies_accepted";
+      this.init();
+    }
+
+    init() {
+      // Проверяем, было ли уже дано согласие
+      if (!this.getCookie(this.cookieName)) {
+        this.show();
+      }
+
+      // Обработчик кнопки "Принять"
+      this.acceptBtn.addEventListener("click", () => {
+        this.accept();
+      });
+
+      // Закрытие по Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !this.notice.hidden) {
+          this.accept();
+        }
+      });
+    }
+
+    show() {
+      this.notice.hidden = false;
+      this.notice.setAttribute("aria-hidden", "false");
+
+      // Анимация появления
+      this.notice.style.opacity = "0";
+      this.notice.style.transform = "translateY(100%)";
+
+      requestAnimationFrame(() => {
+        this.notice.style.transition = "all 0.3s ease";
+        this.notice.style.opacity = "1";
+        this.notice.style.transform = "translateY(0)";
+      });
+    }
+
+    hide() {
+      this.notice.style.opacity = "0";
+      this.notice.style.transform = "translateY(100%)";
+
+      setTimeout(() => {
+        this.notice.hidden = true;
+        this.notice.setAttribute("aria-hidden", "true");
+      }, 300);
+    }
+
+    accept() {
+      // Сохраняем согласие в cookies на год
+      this.setCookie(this.cookieName, "true", 365);
+      this.hide();
+
+      // Можно добавить callback для аналитики
+      this.onAccept();
+    }
+
+    onAccept() {
+      console.log("Cookies accepted");
+      // Здесь можно инициализировать аналитику и другие скрипты
+    }
+
+    setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      const expires = `expires=${date.toUTCString()}`;
+      document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+    }
+
+    getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0)
+          return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+  }
+
+  // Инициализация cookie notice
+  const cookieNotice = new CookieNotice();
+  // ===== Modal Manager =====
+  (() => {
+    const TRIGGER_SELECTOR = "[data-modal]";
+    const CLOSE_SELECTOR = "[data-close]";
+
+    let activeModal = null;
+    let lastFocused = null;
+
+    const portfolioGrid = document.querySelector(".portfolio__grid"); // делегирование сюда
+    const delegationRoot = portfolioGrid || document;
+
+    // Вычисляем ширину скроллбара и кладём в CSS-переменную
+    function applyScrollbarCompensation() {
+      const sbw = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.setProperty("--sbw", `${sbw}px`);
+    }
+
+    function lockScroll() {
+      applyScrollbarCompensation();
+      document.body.classList.add("modal-open");
+    }
+    function unlockScroll() {
+      document.body.classList.remove("modal-open");
+      // Не чистим --sbw: пригодится при повторном открытии
+    }
+
+    function getFocusable(container) {
+      return Array.from(
+        container.querySelectorAll(
+          'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+    }
+
+    function trapFocus(e) {
+      if (!activeModal) return;
+      const dialog = activeModal.querySelector(".modal__dialog");
+      if (!dialog) return;
+
+      if (e.key !== "Tab") return;
+
+      const focusables = getFocusable(dialog);
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function onEscClose(e) {
+      if (e.key === "Escape" && activeModal) {
+        closeModal();
+      }
+    }
+
+    function openModalById(id, triggerEl) {
+      const modal = document.getElementById(id);
+      if (!modal) {
+        console.warn(`[Modal] Не найдена модалка с id="${id}"`);
+        return;
+      }
+      if (activeModal && activeModal !== modal) {
+        closeModal(false); // закрыть без возврата фокуса (вернём после открытия новой)
+      }
+
+      lastFocused = triggerEl || document.activeElement;
+
+      // Открытие (плавно): просто добавляем класс — анимируются overlay и dialog
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      activeModal = modal;
+
+      // Блокируем скролл документа
+      lockScroll();
+
+      // Фокус внутрь диалога
+      const dialog = modal.querySelector(".modal__dialog");
+      const autoFocusTarget =
+        dialog.querySelector("[autofocus]") ||
+        getFocusable(dialog)[0] ||
+        modal.querySelector(".modal__close") ||
+        dialog;
+
+      // На следующий тик — чтобы DOM успел применить видимость
+      requestAnimationFrame(() => autoFocusTarget && autoFocusTarget.focus());
+
+      // Навешиваем глобальные слушатели
+      document.addEventListener("keydown", trapFocus);
+      document.addEventListener("keydown", onEscClose);
+    }
+
+    function closeModal(restoreFocus = true) {
+      if (!activeModal) return;
+
+      activeModal.classList.remove("is-open");
+      activeModal.setAttribute("aria-hidden", "true");
+
+      // Снимаем глобальные слушатели
+      document.removeEventListener("keydown", trapFocus);
+      document.removeEventListener("keydown", onEscClose);
+
+      // Возврат фокуса на триггер
+      if (restoreFocus && lastFocused && document.contains(lastFocused)) {
+        lastFocused.focus();
+      }
+      lastFocused = null;
+      activeModal = null;
+
+      // Разблокируем скролл
+      unlockScroll();
+    }
+
+    // Делегирование кликов по триггерам
+    delegationRoot.addEventListener("click", (e) => {
+      const trigger = e.target.closest(TRIGGER_SELECTOR);
+      if (!trigger) return;
+      const id = trigger.getAttribute("data-modal");
+      if (!id) return;
+      e.preventDefault();
+      openModalById(id, trigger);
+    });
+
+    // Клавиатура (Enter/Space) по триггерам
+    delegationRoot.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const trigger = e.target.closest(TRIGGER_SELECTOR);
+      if (!trigger) return;
+      const id = trigger.getAttribute("data-modal");
+      if (!id) return;
+      e.preventDefault();
+      openModalById(id, trigger);
+    });
+
+    // Делегирование закрытия: клик по overlay или по элементам с data-close
+    document.addEventListener("click", (e) => {
+      if (!activeModal) return;
+
+      // overlay
+      if (e.target === activeModal.querySelector(".modal__overlay")) {
+        closeModal();
+        return;
+      }
+      // явные элементы закрытия
+      const closeBtn = e.target.closest(CLOSE_SELECTOR);
+      if (closeBtn && activeModal.contains(closeBtn)) {
+        e.preventDefault();
+        closeModal();
+      }
+    });
+
+    // Адаптация под ресайз (скроллбар может измениться)
+    window.addEventListener("resize", () => {
+      if (activeModal) applyScrollbarCompensation();
+    });
+  })();
+}); // Закрывающая скобка DOMContentLoaded
+
+// ===== Hero video bootstrap =====
+(() => {
+  const section = document.querySelector(".hero");
+  const video = document.getElementById("heroVideo");
+  const sphere = document.querySelector(".hero__sphere");
+
+  if (!section || !video) return;
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (prefersReduced) {
+    // Оставляем canvas, видео не трогаем
+    return;
+  }
+
+  // iOS/Chrome policy: гарантируем mute/autoplay флаги и свойства
+  video.muted = true;
+  video.autoplay = true;
+  video.playsInline = true;
+
+  let canPlay = false;
+
+  // Плавный ввод: как только буфер готов — показываем
+  const onCanPlay = () => {
+    canPlay = true;
+    // Пробуем запустить
+    const p = video.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => {
+        video.classList.add("is-visible");
+        if (sphere) sphere.classList.add("is-hidden"); // мягко прячем canvas
+      }).catch(() => {
+        // Автоплей заблокирован → остаёмся на canvas
+      });
+    } else {
+      // Старые браузеры
+      video.classList.add("is-visible");
+      if (sphere) sphere.classList.add("is-hidden");
+    }
+  };
+
+  // Если видео уже было в кеше
+  if (video.readyState >= 3) {
+    onCanPlay();
+  } else {
+    video.addEventListener("canplaythrough", onCanPlay, { once: true });
+  }
+
+  // Управление воспроизведением по видимости (экономим батарейку/CPU)
+  const io = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+
+      if (entry.isIntersecting && canPlay) {
+        // Возвращаем воспроизведение
+        const p = video.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      } else {
+        // В паузу, когда секция вне экрана
+        video.pause();
+      }
+    },
+    { root: null, threshold: 0.2 }
+  );
+
+  io.observe(section);
+
+  // Подстраховка: если вдруг ошибка/столк — остаёмся на canvas
+  video.addEventListener("error", () => {
+    video.classList.remove("is-visible");
+    if (sphere) sphere.classList.remove("is-hidden");
+  });
+  video.addEventListener("stalled", () => {
+    // Если зависло до старта — не показываем видео
+    if (!canPlay) {
+      video.classList.remove("is-visible");
+      if (sphere) sphere.classList.remove("is-hidden");
+    }
+  });
+})();
