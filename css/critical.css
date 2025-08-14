@@ -293,8 +293,8 @@ summary {
 .hero__title {
   color: var(--color-light);
   font-family: "Inter", sans-serif;
-  font-size: 60px;
-  font-weight: 400;
+  font-size: 70px;
+  font-weight: 700;
   line-height: 1;
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -304,7 +304,7 @@ summary {
 .hero__logo {
   display: inline-block;
   vertical-align: -20px; /* выравнивание по центру относительно текста */
-  height: 60px; /* или подогнать под высоту текста */
+  height: 70px; /* или подогнать под высоту текста */
   width: auto;
 }
 .hero__subtitle {
@@ -317,7 +317,7 @@ summary {
   margin: 25px 0;
 }
 .hero__cta {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   color: var(--color-light);
   font-family: "Inter", sans-serif;
   font-size: 1.375rem;
@@ -325,8 +325,8 @@ summary {
   line-height: 1.1;
   text-align: center;
   height: 44px;
-  width: 182px;
-  border: 1px solid var(--color-secondary);
+  padding-inline: 15px;
+  border: 1px solid var(--color-primary);
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
@@ -346,7 +346,7 @@ summary {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(164, 119, 100, 1);
+  background-color: rgba(3, 40, 29, 1);
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
   z-index: 1;
@@ -360,15 +360,17 @@ summary {
 
 .hero__cta:hover {
   border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 1);
 }
 
 .hero__cta:hover::before {
   transform: translateY(0);
 }
-/* Scroll down arrow */
-.scroll-down {
-  display: block;
-  margin: 25px auto 0 auto;
+.hero__buttons {
+  display: flex;
+  gap: 25px;
+  margin-inline: auto;
+  width: fit-content;
 }
 /* Social media links */
 .hero__social-media {
@@ -388,43 +390,15 @@ summary {
 .social-links a:hover path {
   fill: var(--color-secondary);
 }
-@keyframes heartbeat {
-  0%,
-  20%,
-  40%,
-  100% {
-    transform: scale(1);
-  }
-  15%,
-  35% {
-    transform: scale(1.05);
-  }
-}
 
-@keyframes colorPulse {
-  0%,
-  20%,
-  40%,
-  100% {
-    fill: #f2eeec;
-  }
-  15%,
-  35% {
-    fill: #a47764;
-  }
-}
-
-.scroll-down {
-  animation: heartbeat 4s cubic-bezier(0.24, 0.69, 0.33, 0.93) infinite;
-}
-
-.scroll-down path {
-  animation: colorPulse 4s cubic-bezier(0.24, 0.69, 0.33, 0.93) infinite;
-}
 /* === Hero background video === */
 .hero .container {
   position: relative;
   z-index: 2; /* контент поверх видео */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero__video {
@@ -439,7 +413,6 @@ summary {
   height: 100%;
   object-fit: cover;
   display: block;
-
   opacity: 0; /* показываем, когда буфер готов */
   transition: opacity 0.3s ease;
   will-change: opacity;

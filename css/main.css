@@ -106,10 +106,10 @@
   align-items: center;
   justify-content: center;
   font-size: 1.375rem;
-  color: var(--color-light);
-  background-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background-color: rgba(164, 119, 100, 0.35);
   border: 1px solid var(--color-secondary);
-  border-radius: 16px;
+  border-radius: 10px;
   text-decoration: none;
   height: 44px;
   width: 247px;
@@ -140,6 +140,8 @@
 }
 
 .portfolio__load-more:hover {
+  border: 1px solid rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
   border-radius: 30px;
 }
 
@@ -274,61 +276,62 @@
   transform: rotate(180deg);
 }
 
-/* ===== Circle Decoration Styles ===== */
+/* ===== Prices: circle styles (base/hover/active) ===== */
+
+/* База: 1px rgba(164,119,100,0.5) */
 .js-circles circle {
-  stroke: currentColor;
-  opacity: 0.2;
-  transition: stroke 0.3s ease, opacity 0.3s ease;
+  stroke: rgba(164, 119, 100, 0.5);
+  stroke-width: 1px;
+  opacity: 1;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease;
 }
 
-/* Hover effect for circles */
+/* Hover: 1px rgba(164,119,100,1) — для соответствующего круга */
 .prices__item:not(.is-active)
   .prices__header:hover
   ~ .js-circles
   circle:nth-child(1) {
-  opacity: 0.4;
+  stroke: rgba(164, 119, 100, 1);
+  stroke-width: 1px;
 }
-
 .prices__item:nth-child(2):not(.is-active)
   .prices__header:hover
   ~ .js-circles
   circle:nth-child(2) {
-  opacity: 0.4;
+  stroke: rgba(164, 119, 100, 1);
+  stroke-width: 1px;
 }
-
 .prices__item:nth-child(3):not(.is-active)
   .prices__header:hover
   ~ .js-circles
   circle:nth-child(3) {
-  opacity: 0.4;
+  stroke: rgba(164, 119, 100, 1);
+  stroke-width: 1px;
 }
-
 .prices__item:nth-child(4):not(.is-active)
   .prices__header:hover
   ~ .js-circles
   circle:nth-child(4) {
-  opacity: 0.4;
+  stroke: rgba(164, 119, 100, 1);
+  stroke-width: 1px;
 }
 
-/* Active state for circles */
+/* Active: 3px rgba(242,238,236,1) — выбранный */
 .prices__item.is-active .js-circles circle:nth-child(1) {
-  stroke: #a47764;
-  opacity: 1;
+  stroke: rgba(242, 238, 236, 1);
+  stroke-width: 3px;
 }
-
 .prices__item:nth-child(2).is-active .js-circles circle:nth-child(2) {
-  stroke: #a47764;
-  opacity: 1;
+  stroke: rgba(242, 238, 236, 1);
+  stroke-width: 3px;
 }
-
 .prices__item:nth-child(3).is-active .js-circles circle:nth-child(3) {
-  stroke: #a47764;
-  opacity: 1;
+  stroke: rgba(242, 238, 236, 1);
+  stroke-width: 3px;
 }
-
 .prices__item:nth-child(4).is-active .js-circles circle:nth-child(4) {
-  stroke: #a47764;
-  opacity: 1;
+  stroke: rgba(242, 238, 236, 1);
+  stroke-width: 3px;
 }
 
 .prices__description {
@@ -395,9 +398,11 @@
   width: 380px;
   height: 260px;
   margin-inline: auto;
+  padding: 2px;
 }
 .prices__cta {
-  width: 182px;
+  padding-inline: 15px;
+  width: fit-content;
   height: 44px;
   display: block;
   text-decoration: none;
@@ -405,11 +410,11 @@
   font-size: 22px;
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid var(--color-secondary);
-  border-radius: 16px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-top: 50px;
   margin-inline: auto;
 }
 
@@ -432,7 +437,8 @@
   margin-bottom: 37px;
 }
 .about__cta {
-  width: 192px;
+  padding-inline: 15px;
+  width: fit-content;
   height: 44px;
   display: block;
   text-decoration: none;
@@ -440,7 +446,7 @@
   font-size: 22px;
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid var(--color-secondary);
-  border-radius: 16px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,6 +509,7 @@
   height: 260px;
   margin-left: auto;
   margin-top: 38px;
+  padding: 2px;
 }
 
 /* ===== FAQ Panel Animation (упрощено как в Prices) ===== */
@@ -584,11 +591,34 @@
 }
 
 /* ===== Circle States (управляется через JS) ===== */
+/* === FAQ circles: base / hover / active === */
 .faq__decor circle {
-  stroke: currentColor;
-  opacity: 0.2;
-  transition: stroke 0.3s ease, opacity 0.3s ease;
+  stroke: rgba(3, 40, 29, 0.2); /* обычное */
+  stroke-width: 1px;
+  opacity: 1;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease;
 }
+
+/* Hover: соответствующий круг */
+.faq__item:first-child .faq__question:hover ~ .faq__decor circle:nth-child(1),
+.faq__item:nth-child(2) .faq__question:hover ~ .faq__decor circle:nth-child(2),
+.faq__item:nth-child(3) .faq__question:hover ~ .faq__decor circle:nth-child(3),
+.faq__item:nth-child(4) .faq__question:hover ~ .faq__decor circle:nth-child(4),
+.faq__item:nth-child(5) .faq__question:hover ~ .faq__decor circle:nth-child(5) {
+  stroke: rgba(3, 40, 29, 1); /* hover */
+  stroke-width: 1px;
+}
+
+/* Active: выбранный пункт */
+.faq__item:first-child.is-active ~ .faq__decor circle:nth-child(1),
+.faq__item:nth-child(2).is-active ~ .faq__decor circle:nth-child(2),
+.faq__item:nth-child(3).is-active ~ .faq__decor circle:nth-child(3),
+.faq__item:nth-child(4).is-active ~ .faq__decor circle:nth-child(4),
+.faq__item:nth-child(5).is-active ~ .faq__decor circle:nth-child(5) {
+  stroke: rgba(164, 119, 100, 1); /* #A47764 */
+  stroke-width: 3px;
+}
+
 /* ========================================
    FOOTER STYLES
    ======================================== */
@@ -604,14 +634,24 @@
   font-size: 4.375rem;
   color: var(--color-secondary);
 }
+.footer__title:hover {
+  color: var(--color-primary);
+}
+
 .footer__email {
   font-size: 4.375rem;
   font-weight: 700;
+}
+.footer__email:hover {
+  text-decoration: underline;
 }
 .footer__phone {
   font-size: 4.375rem;
   margin-top: 50px;
   margin-left: auto;
+}
+.footer__phone:hover {
+  color: var(--color-secondary);
 }
 .footer__socials {
   display: flex;
@@ -630,7 +670,9 @@
   margin-left: auto;
   margin-bottom: 25px;
 }
-
+.footer__privacy:hover {
+  color: var(--color-secondary);
+}
 /* ========================================
    HEADER SCROLL STYLES
    ======================================== */
@@ -725,7 +767,7 @@ header.header--prices svg path {
   bottom: 10px;
   width: 562px;
   padding: 10px 50px;
-  background: rgba(164, 119, 100, 0.2);
+  background: rgba(0, 66, 37, 0.2);
   backdrop-filter: blur(20.6px);
   border-radius: 20px;
   z-index: 1000;
@@ -781,13 +823,23 @@ header.header--prices svg path {
 .portfolio__image {
   position: relative;
 }
-[data-modal="project-1"] .portfolio__image {
+
+/* === Project 1 (MD Cosmoshop) === */
+.portfolio__card[data-state-url="/portfolio/project-1"] .portfolio__image,
+.portfolio__card[data-modal-src$="/portfolio/project-1.html"]
+  .portfolio__image {
   background-image: url("/assets/MD/MDCosmo.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: auto 100%;
 }
-[data-modal="project-1"] .portfolio__image .image_1 {
+
+.portfolio__card[data-state-url="/portfolio/project-1"]
+  .portfolio__image
+  .image_1,
+.portfolio__card[data-modal-src$="/portfolio/project-1.html"]
+  .portfolio__image
+  .image_1 {
   position: absolute;
   top: 9px;
   left: 18px;
@@ -795,7 +847,13 @@ header.header--prices svg path {
   height: 59px;
   object-fit: cover;
 }
-[data-modal="project-1"] .portfolio__image .image_2 {
+
+.portfolio__card[data-state-url="/portfolio/project-1"]
+  .portfolio__image
+  .image_2,
+.portfolio__card[data-modal-src$="/portfolio/project-1.html"]
+  .portfolio__image
+  .image_2 {
   position: absolute;
   top: 30px;
   left: 340px;
@@ -803,7 +861,13 @@ header.header--prices svg path {
   height: 16px;
   object-fit: cover;
 }
-[data-modal="project-1"] .portfolio__image .image_3 {
+
+.portfolio__card[data-state-url="/portfolio/project-1"]
+  .portfolio__image
+  .image_3,
+.portfolio__card[data-modal-src$="/portfolio/project-1.html"]
+  .portfolio__image
+  .image_3 {
   position: absolute;
   top: 153px;
   left: 18px;
@@ -811,25 +875,46 @@ header.header--prices svg path {
   height: 42px;
   object-fit: cover;
 }
-/* Project 2 */
-[data-modal="project-2"] .portfolio__image {
+
+/* === Project 2 (SHE) === */
+.portfolio__card[data-state-url="/portfolio/project-2"] .portfolio__image,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image {
   background-color: #f7f3ef;
 }
-[data-modal="project-2"] .portfolio__image .image_1 {
+
+.portfolio__card[data-state-url="/portfolio/project-2"]
+  .portfolio__image
+  .image_1,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image
+  .image_1 {
   position: absolute;
   top: 20px;
   left: 25px;
   width: 162px;
   height: 70px;
 }
-[data-modal="project-2"] .portfolio__image .image_2 {
+
+.portfolio__card[data-state-url="/portfolio/project-2"]
+  .portfolio__image
+  .image_2,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image
+  .image_2 {
   position: absolute;
   top: 47px;
   left: 304px;
   width: 52px;
   height: 16px;
 }
-[data-modal="project-2"] .portfolio__image .image_3 {
+
+.portfolio__card[data-state-url="/portfolio/project-2"]
+  .portfolio__image
+  .image_3,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image
+  .image_3 {
   position: absolute;
   top: 161px;
   left: 25px;
@@ -837,21 +922,34 @@ header.header--prices svg path {
   height: 48px;
   object-fit: contain;
 }
-[data-modal="project-2"] .portfolio__image .image_4 {
+
+.portfolio__card[data-state-url="/portfolio/project-2"]
+  .portfolio__image
+  .image_4,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image
+  .image_4 {
   position: absolute;
   top: 193px;
   left: 36px;
   width: 312px;
   height: 169px;
 }
-[data-modal="project-2"] .portfolio__image .image_5 {
+
+.portfolio__card[data-state-url="/portfolio/project-2"]
+  .portfolio__image
+  .image_5,
+.portfolio__card[data-modal-src$="/portfolio/project-2.html"]
+  .portfolio__image
+  .image_5 {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
   width: 305px;
   height: 370px;
   object-fit: cover;
 }
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .cookie-notice {
@@ -958,6 +1056,67 @@ body.modal-open {
   .modal__dialog {
     transition: none !important;
   }
+}
+/* === Blog: копия Portfolio (кроме кнопки) === */
+
+.blog {
+  font-family: "Inter", sans-serif;
+  margin-bottom: 100px;
+}
+
+.blog .container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Сетка карточек */
+.blog__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  row-gap: 15px;
+  width: 100%;
+}
+
+/* Карточка */
+.blog__item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Картинка */
+.blog__image {
+  width: 100%;
+  height: 370px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: var(--color-light);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+.blog__image:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+.blog__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Контент под картинкой */
+.blog__details {
+  width: 100%;
+}
+
+.blog__title {
+  font-size: 2.5rem;
+}
+
+.blog__description {
+  font-size: 1.125rem;
+  margin-top: 5px;
+  width: 500px;
 }
 
 /* ========================================
