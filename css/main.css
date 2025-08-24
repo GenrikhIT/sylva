@@ -1,9 +1,7 @@
-/* ========================================
-   MISSION SECTION
-   ======================================== */
-/* * {
-  outline: 1px solid red;
-} */
+html {
+  scroll-padding-top: 97px;
+}
+
 .mission {
   padding: 50px 0;
   background-color: #fff;
@@ -23,14 +21,13 @@
   margin: 0 auto;
 }
 
-/* Стили для акцентов */
 .mission__italic {
   font-style: italic;
   font-weight: 400;
 }
 .mission__icon--brands svg {
   display: inline-block;
-  vertical-align: -14px; /* выравнивание по центру относительно текста */
+  vertical-align: -14px;
 }
 .mission__bold {
   font-weight: 700;
@@ -41,7 +38,6 @@
   font-weight: 400;
 }
 
-/* Управление переносами строк */
 .br-desktop {
   display: inline;
 }
@@ -50,7 +46,7 @@
 .br-mobile {
   display: none;
 }
-/* Portfolio styles */
+
 .portfolio {
   font-family: "Inter", sans-serif;
   margin-bottom: 100px;
@@ -99,6 +95,9 @@
 .portfolio__description {
   font-size: 1.125rem;
   margin-top: 5px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 .portfolio__load-more {
   margin: 50px auto 0 auto;
@@ -106,9 +105,9 @@
   align-items: center;
   justify-content: center;
   font-size: 1.375rem;
-  color: var(--color-secondary);
-  background-color: rgba(164, 119, 100, 0.35);
-  border: 1px solid var(--color-secondary);
+  color: var(--color-primary);
+  background-color: rgba(0, 66, 37, 0.35);
+  border: 1px solid var(--color-primary);
   border-radius: 10px;
   text-decoration: none;
   height: 44px;
@@ -117,7 +116,7 @@
   position: relative;
   overflow: hidden;
   transition: border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
-  cursor: pointer; /* добавил для кнопки */
+  cursor: pointer;
 }
 
 .portfolio__load-more::before {
@@ -127,7 +126,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #03281d;
+  background-color: var(--color-primary);
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
   z-index: 1;
@@ -140,7 +139,7 @@
 }
 
 .portfolio__load-more:hover {
-  border: 1px solid rgba(255, 255, 255, 1);
+  border: 1px solid var(--color-primary);
   color: rgba(255, 255, 255, 1);
   border-radius: 30px;
 }
@@ -148,10 +147,48 @@
 .portfolio__load-more:hover::before {
   transform: translateY(0);
 }
-/* Prices section styles */
-/* ========================================
-   PRICES SECTION STYLES
-   ======================================== */
+
+:root {
+  --portfolio-arrow: url("/assets/arrow-left.svg");
+}
+
+.portfolio__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.portfolio__link::after {
+  content: "";
+  width: 12px;
+  height: 9px;
+  margin-left: 5px;
+  background-color: currentColor;
+
+  -webkit-mask-image: var(--portfolio-arrow);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+
+  mask-image: var(--portfolio-arrow);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.portfolio__link:hover {
+  color: var(--color-secondary);
+}
+.portfolio__link:hover::after {
+  transform: translateX(2px);
+}
+
+.portfolio__link > span {
+  display: none;
+}
+
 .prices {
   padding: 43px 0;
   color: var(--color-light);
@@ -171,7 +208,6 @@
   width: 50%;
 }
 
-/* ===== Accordion Header ===== */
 .prices__header {
   font-size: 2.5rem;
   display: flex;
@@ -187,7 +223,6 @@
   transition: all 0.3s ease;
 }
 
-/* ===== Accordion Icon Container ===== */
 .prices__icon {
   display: inline-flex;
   align-items: center;
@@ -195,30 +230,25 @@
   transition: transform 0.3s ease;
 }
 
-/* ===== Accordion Item States ===== */
 .prices__item {
   padding-bottom: 25px;
   margin-bottom: 40px;
   border-bottom: 1px solid rgba(164, 119, 100, 0.35);
 }
 
-/* ===== Panel Animation ===== */
 .prices__panel {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, opacity 0.2s ease;
   opacity: 0;
-  margin-top: 31px;
 }
 
 .prices__panel.is-open {
   max-height: 1000px;
   opacity: 1;
-  padding-top: 20px;
+  padding-top: 25px;
 }
 
-/* ===== SVG Icon States ===== */
-/* Base state (closed) */
 .prices__icon svg path:first-child,
 .prices__icon svg path:nth-child(3),
 .prices__icon svg path:last-child {
@@ -232,7 +262,6 @@
   transition: fill 0.3s ease, fill-opacity 0.3s ease;
 }
 
-/* Hover state (closed item) */
 .prices__item:not(.is-active)
   .prices__header:hover
   .prices__icon
@@ -260,7 +289,6 @@
   fill-opacity: 1;
 }
 
-/* Active state (open item) */
 .prices__item.is-active .prices__icon svg path:first-child,
 .prices__item.is-active .prices__icon svg path:nth-child(3),
 .prices__item.is-active .prices__icon svg path:last-child {
@@ -276,9 +304,6 @@
   transform: rotate(180deg);
 }
 
-/* ===== Prices: circle styles (base/hover/active) ===== */
-
-/* База: 1px rgba(164,119,100,0.5) */
 .js-circles circle {
   stroke: rgba(164, 119, 100, 0.5);
   stroke-width: 1px;
@@ -286,7 +311,6 @@
   transition: stroke 0.25s ease, stroke-width 0.25s ease;
 }
 
-/* Hover: 1px rgba(164,119,100,1) — для соответствующего круга */
 .prices__item:not(.is-active)
   .prices__header:hover
   ~ .js-circles
@@ -316,7 +340,6 @@
   stroke-width: 1px;
 }
 
-/* Active: 3px rgba(242,238,236,1) — выбранный */
 .prices__item.is-active .js-circles circle:nth-child(1) {
   stroke: rgba(242, 238, 236, 1);
   stroke-width: 3px;
@@ -342,39 +365,34 @@
 
 .prices__table {
   width: 100%;
-  table-layout: fixed; /* фиксируем ширину колонок */
-  border-collapse: collapse; /* единые границы */
-  margin-top: 20px; /* отступ над таблицей */
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 20px;
   border-spacing: 0 25px;
 }
 
-/* Общий стиль ячеек */
-
-/* Первая колонка — занимает всё оставшееся пространство */
 .prices__table td:first-child {
   text-align: left;
   font-size: 27px;
-  /* ширина не задаем — растягивается автоматически */
+  padding-right: 49px;
 }
 
-/* Вторая и третья колонки по 183px каждая (в сумме 366px) */
 .prices__table td:nth-child(2),
 .prices__table td:nth-child(3) {
-  width: calc(366px / 2); /* 183px */
+  width: 122px;
   font-size: 18px;
 }
 
-/* Вторая колонка — текст прижат влево */
 .prices__table td:nth-child(2) {
   text-align: left;
 }
 
-/* Третья колонка — текст прижат вправо */
 .prices__table td:nth-child(3) {
   text-align: right;
 }
 .prices__table tr:first-child td {
-  padding: 10px 0;
+  padding-top: 25px;
+  padding-bottom: 10px;
   border-top: 1px solid rgba(164, 119, 100, 0.35);
   border-bottom: 1px solid rgba(164, 119, 100, 0.35);
 }
@@ -418,7 +436,36 @@
   margin-inline: auto;
 }
 
-/*About Section styles */
+.prices__table td.is-toggle {
+  cursor: pointer;
+}
+
+.prices__cell-title {
+  display: inline;
+}
+
+.prices__cell-details {
+  display: none;
+  margin-top: 5px;
+  color: var(--color-light);
+  line-height: 1.1;
+  font-size: 1rem;
+}
+
+.prices__cell-details.is-open {
+  display: block;
+}
+
+.prices__table td.is-toggle .prices__cell-title {
+  transition: color 0.2s ease;
+}
+
+.prices__table td.is-toggle:hover .prices__cell-title,
+.prices__table td.is-toggle:focus-visible .prices__cell-title,
+.prices__table td.is-toggle[aria-expanded="true"] .prices__cell-title {
+  color: var(--color-secondary);
+}
+
 .about {
   padding: 56px 0 83px 0;
   background-color: var(--color-primary);
@@ -466,9 +513,6 @@
   text-align: right;
 }
 
-/* ========================================
-   FAQ SECTION STYLES (УПРОЩЕННАЯ ВЕРСИЯ КАК В PRICES)
-   ======================================== */
 .faq {
   margin: 100px 0;
 }
@@ -483,7 +527,7 @@
 }
 .faq__item {
   width: 100%;
-  padding-bottom: 13px;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgba(41, 38, 58, 0.35);
   margin-bottom: 5px;
 }
@@ -508,26 +552,23 @@
   width: 420px;
   height: 260px;
   margin-left: auto;
-  margin-top: 38px;
+  /* margin-top: 38px; на четыре элемента */
   padding: 2px;
 }
 
-/* ===== FAQ Panel Animation (упрощено как в Prices) ===== */
 .faq__panel {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, opacity 0.2s ease;
   opacity: 0;
-  margin-top: 31px;
 }
 
 .faq__panel.is-open {
   max-height: 1000px;
   opacity: 1;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
-/* ===== FAQ Icon Animation ===== */
 .faq__icon {
   display: inline-flex;
   align-items: center;
@@ -543,8 +584,6 @@
   transform: rotate(180deg);
 }
 
-/* ===== FAQ Icon States ===== */
-/* Base state (closed) */
 .faq__icon svg path:first-child,
 .faq__icon svg path:nth-child(3),
 .faq__icon svg path:last-child {
@@ -558,7 +597,6 @@
   transition: fill 0.3s ease, fill-opacity 0.3s ease;
 }
 
-/* Hover state (closed item) */
 .faq__item:not(.is-active) .faq__question:hover .faq__icon svg path:first-child,
 .faq__item:not(.is-active)
   .faq__question:hover
@@ -578,7 +616,6 @@
   fill-opacity: 1;
 }
 
-/* Active state (open item) */
 .faq__item.is-active .faq__icon svg path:first-child,
 .faq__item.is-active .faq__icon svg path:nth-child(3),
 .faq__item.is-active .faq__icon svg path:last-child {
@@ -590,94 +627,32 @@
   fill-opacity: 1;
 }
 
-/* ===== Circle States (управляется через JS) ===== */
-/* === FAQ circles: base / hover / active === */
 .faq__decor circle {
-  stroke: rgba(3, 40, 29, 0.2); /* обычное */
+  stroke: rgba(3, 40, 29, 0.2);
   stroke-width: 1px;
   opacity: 1;
   transition: stroke 0.25s ease, stroke-width 0.25s ease;
 }
 
-/* Hover: соответствующий круг */
 .faq__item:first-child .faq__question:hover ~ .faq__decor circle:nth-child(1),
 .faq__item:nth-child(2) .faq__question:hover ~ .faq__decor circle:nth-child(2),
 .faq__item:nth-child(3) .faq__question:hover ~ .faq__decor circle:nth-child(3),
 .faq__item:nth-child(4) .faq__question:hover ~ .faq__decor circle:nth-child(4),
 .faq__item:nth-child(5) .faq__question:hover ~ .faq__decor circle:nth-child(5) {
-  stroke: rgba(3, 40, 29, 1); /* hover */
+  stroke: rgba(3, 40, 29, 1);
   stroke-width: 1px;
 }
 
-/* Active: выбранный пункт */
 .faq__item:first-child.is-active ~ .faq__decor circle:nth-child(1),
 .faq__item:nth-child(2).is-active ~ .faq__decor circle:nth-child(2),
 .faq__item:nth-child(3).is-active ~ .faq__decor circle:nth-child(3),
 .faq__item:nth-child(4).is-active ~ .faq__decor circle:nth-child(4),
 .faq__item:nth-child(5).is-active ~ .faq__decor circle:nth-child(5) {
-  stroke: rgba(164, 119, 100, 1); /* #A47764 */
+  stroke: rgba(164, 119, 100, 1);
   stroke-width: 3px;
 }
 
-/* ========================================
-   FOOTER STYLES
-   ======================================== */
-/* Footer styles */
-.footer {
-  padding: 25px 0;
-}
-.footer__content {
-  display: flex;
-  flex-direction: column;
-}
-.footer__title {
-  font-size: 4.375rem;
-  color: var(--color-secondary);
-}
-.footer__title:hover {
-  color: var(--color-primary);
-}
-
-.footer__email {
-  font-size: 4.375rem;
-  font-weight: 700;
-}
-.footer__email:hover {
-  text-decoration: underline;
-}
-.footer__phone {
-  font-size: 4.375rem;
-  margin-top: 50px;
-  margin-left: auto;
-}
-.footer__phone:hover {
-  color: var(--color-secondary);
-}
-.footer__socials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin: 25px 0 50px auto;
-}
-.footer__socials a:hover path {
-  fill: var(--color-secondary);
-}
-.footer__bottom {
-  display: flex;
-  gap: 10px;
-  font-size: 0.75rem;
-  margin-left: auto;
-  margin-bottom: 25px;
-}
-.footer__privacy:hover {
-  color: var(--color-secondary);
-}
-/* ========================================
-   HEADER SCROLL STYLES
-   ======================================== */
-/* Базовый («по умолчанию») вид для mission, portfolio, faq */
-header.header--default {
+/* header.header--default {
   background-color: #ffffff;
   border-bottom: 1px solid #a47764;
 }
@@ -688,9 +663,8 @@ header.header--default button {
 }
 header.header--default svg path {
   fill: #03281d;
-}
+} */
 
-/* Вид для hero */
 header.header--hero {
   background-color: rgba(255, 255, 255, 0.25);
   border-bottom: none;
@@ -704,10 +678,9 @@ header.header--hero svg path {
   fill: #03281d;
 }
 
-/* Вид для prices и about */
 header.header--prices {
   background-color: #03281d;
-  border-bottom: 1px solid #a47764;
+  /* border-bottom: 1px solid #a47764; */
 }
 header.header--prices,
 header.header--prices a,
@@ -718,10 +691,6 @@ header.header--prices svg path {
   fill: #f2eeec;
 }
 
-/* ========================================
-   BUTTON HOVER EFFECTS
-   ======================================== */
-/* Эффект для кнопок */
 .prices__cta,
 .about__cta {
   position: relative;
@@ -760,7 +729,6 @@ header.header--prices svg path {
   transform: translateY(0);
 }
 
-/* Cookie Notice Styles */
 .cookie-notice {
   position: fixed;
   right: 50px;
@@ -819,19 +787,17 @@ header.header--prices svg path {
   color: #a47764;
 }
 
-/* Projects styles */
 .portfolio__image {
   position: relative;
 }
 
-/* === Project 1 (MD Cosmoshop) === */
 .portfolio__card[data-state-url="/portfolio/project-1"] .portfolio__image,
 .portfolio__card[data-modal-src$="/portfolio/project-1.html"]
   .portfolio__image {
-  background-image: url("/assets/MD/MDCosmo.png");
+  background-image: url("/assets/MD/MD-bg.png");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: 100% auto;
 }
 
 .portfolio__card[data-state-url="/portfolio/project-1"]
@@ -876,7 +842,6 @@ header.header--prices svg path {
   object-fit: cover;
 }
 
-/* === Project 2 (SHE) === */
 .portfolio__card[data-state-url="/portfolio/project-2"] .portfolio__image,
 .portfolio__card[data-modal-src$="/portfolio/project-2.html"]
   .portfolio__image {
@@ -950,7 +915,6 @@ header.header--prices svg path {
   object-fit: cover;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .cookie-notice {
     right: 20px;
@@ -975,7 +939,7 @@ header.header--prices svg path {
     text-align: center;
   }
 }
-/* ===== Modal Base ===== */
+
 .modal {
   position: fixed;
   inset: 0;
@@ -984,7 +948,6 @@ header.header--prices svg path {
   align-items: center;
   justify-items: center;
 
-  /* скрытое базовое состояние без display:none — нужно для плавных анимаций */
   visibility: hidden;
   pointer-events: none;
 }
@@ -999,12 +962,12 @@ header.header--prices svg path {
 
 .modal__dialog {
   position: relative;
-  max-width: 960px;
-  width: min(90vw, 960px);
-  max-height: 90vh;
+  max-width: 1280px;
+  width: min(90vw, 1280px);
+  max-height: 100vh;
   overflow: auto;
   background: #fff;
-  border-radius: 16px;
+  border-radius: none;
   padding: 24px;
 
   opacity: 0;
@@ -1013,12 +976,10 @@ header.header--prices svg path {
   will-change: opacity, transform;
 }
 
-/* Кнопка закрытия — фиксированная в правом верхнем углу вьюпорта */
 .modal__close {
   position: fixed;
   top: 16px;
-  right: calc(16px + var(--sbw, 0px)); /* с учётом ширины скроллбара */
-  z-index: 1001;
+  right: calc(16px + var(--sbw, 0px));
   width: 40px;
   height: 40px;
   border-radius: 999px;
@@ -1026,9 +987,13 @@ header.header--prices svg path {
   background: #1f1f1f;
   color: #fff;
   cursor: pointer;
+  z-index: 1001; /* Должен быть выше всего */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 }
 
-/* Открытое состояние */
 .modal.is-open {
   visibility: visible;
   pointer-events: auto;
@@ -1041,23 +1006,17 @@ header.header--prices svg path {
   transform: translateY(0);
 }
 
-/* Блокировка скролла документа */
 body.modal-open {
   overflow: hidden;
-  padding-right: var(
-    --sbw,
-    0px
-  ); /* компенсация дергания из-за исчезновения скроллбара */
+  padding-right: var(--sbw, 0px);
 }
 
-/* Вежливость к системным настройкам */
 @media (prefers-reduced-motion: reduce) {
   .modal__overlay,
   .modal__dialog {
     transition: none !important;
   }
 }
-/* === Blog: копия Portfolio (кроме кнопки) === */
 
 .blog {
   font-family: "Inter", sans-serif;
@@ -1069,7 +1028,6 @@ body.modal-open {
   flex-direction: column;
 }
 
-/* Сетка карточек */
 .blog__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1078,16 +1036,14 @@ body.modal-open {
   width: 100%;
 }
 
-/* Карточка */
 .blog__item {
   display: flex;
   flex-direction: column;
 }
 
-/* Картинка */
 .blog__image {
   width: 100%;
-  height: 370px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 15px;
   background-color: var(--color-light);
@@ -1101,10 +1057,9 @@ body.modal-open {
 .blog__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
-/* Контент под картинкой */
 .blog__details {
   width: 100%;
 }
@@ -1119,10 +1074,74 @@ body.modal-open {
   width: 500px;
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
-/* Tablet styles (1024px and below) */
+:root {
+  --cta-popover-w: 422px;
+  --cta-popover-h: 166px;
+}
+
+#cta-modal.modal--compact.modal--popover .modal__dialog {
+  position: fixed;
+  width: var(--cta-popover-w);
+  height: var(--cta-popover-h);
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+  padding: 0;
+
+  top: calc(var(--anchor-y, 0px) - var(--cta-popover-h) - 20px);
+  left: calc(var(--anchor-x, 0px) - var(--cta-popover-w) / 2);
+
+  max-width: calc(100vw - 24px);
+}
+
+#cta-modal .cta-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.375rem;
+  padding: 14px 0;
+  height: 100%;
+}
+#cta-modal .cta-modal__options {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-items: center;
+  margin-inline: auto;
+}
+
+#cta-modal .cta-opt:hover path {
+  fill: var(--color-secondary);
+}
+#cta-modal .cta-opt:hover {
+  color: var(--color-secondary);
+}
+#cta-modal .cta-opt svg {
+  width: 42px;
+  height: 42px;
+}
+
+#cta-modal a[href^="tel:"] {
+  justify-self: center;
+}
+
+#cta-modal .modal__overlay {
+  cursor: pointer;
+}
+#cta-modal .modal__close {
+  position: fixed;
+  top: 14px;
+  right: 45px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 1.375rem;
+}
+
 @media (max-width: 1024px) {
   .mission {
     padding: 50px 0;
@@ -1133,7 +1152,6 @@ body.modal-open {
     line-height: 1.1;
   }
 
-  /* Показываем tablet версию, скрываем desktop */
   .br-desktop {
     display: none;
   }
@@ -1147,7 +1165,6 @@ body.modal-open {
   }
 }
 
-/* Tablet styles (768px and below) */
 @media (max-width: 768px) {
   .mission {
     padding: 50px 0;
@@ -1159,7 +1176,6 @@ body.modal-open {
     text-align: left;
   }
 
-  /* Показываем только mobile версию */
   .br-desktop,
   .br-tablet {
     display: none;
@@ -1170,11 +1186,6 @@ body.modal-open {
   }
 }
 
-/* Mobile styles (480px and below) */
-@media (max-width: 480px) {
-}
-
-/* Дополнительная адаптивность для очень маленьких экранов */
 @media (max-width: 360px) {
   .mission {
     padding: 50px 0;
@@ -1185,7 +1196,6 @@ body.modal-open {
   }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .faq__panel,
   .prices__panel,

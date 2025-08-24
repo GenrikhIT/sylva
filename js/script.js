@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const siteHeader = document.querySelector("header");
   const trackedSections = [
     ...document.querySelectorAll(
-      ".hero, .mission, .portfolio, .prices, .about, .faq, .blog"
+      ".hero, .mission, .portfolio, .prices, .about, .order, .faq, .blog"
     ),
   ];
 
@@ -12,14 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastHeaderClass = "default";
 
   const classForSection = (sec) => {
-    if (sec.classList.contains("hero") || sec.classList.contains("mission"))
-      return "hero";
-    if (sec.classList.contains("prices") || sec.classList.contains("about"))
-      return "prices";
-    return "default"; // включая .blog и прочие
+    if (
+      sec.classList.contains("prices") ||
+      sec.classList.contains("about") ||
+      sec.classList.contains("order")
+    )
+      return "prices"; // тёмная тема
+    return "hero"; // всё остальное — светлая
   };
 
-  const updateHeader = () => {
+  function updateHeader() {
     if (!siteHeader) return;
     const headerHeight = window.innerWidth < 768 ? 66 : 97;
     const y = headerHeight + 1; // 1px гистерезис против скачка на касании
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    const targetClass = nextClass ?? lastHeaderClass;
+    const targetClass = nextClass ?? "hero";
     if (targetClass !== lastHeaderClass) {
       siteHeader.classList.remove(
         "header--hero",
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lastHeaderClass = targetClass;
     }
     ticking = false;
-  };
+  }
 
   window.addEventListener(
     "scroll",
@@ -809,5 +811,478 @@ document.addEventListener("DOMContentLoaded", () => {
         replaceState: true,
       }).catch(console.error);
     })();
+  })();
+  // ===== CTA Modal (hero__cta -> #cta-modal) =====
+  (() => {
+    "use strict";
+    const TRIGGER_SEL = "a.js-cta-modal"; // как мы и договаривались
+    const modalEl = document.getElementById("cta-modal");
+    if (!modalEl) return;
+    const dialogEl = modalEl.querySelector(".modal__dialog");
+    const overlayEl = modalEl.querySelector(".modal__overlay");
+    let isOpen = false,
+      lastActiveEl = null,
+      anchorEl = null;
+
+    function positionToAnchor(el) {
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      // якорь по центру кнопки (по X) и по верхнему краю (по Y)
+      const anchorX = Math.round(r.left + r.width / 2);
+      const anchorY = Math.round(r.top);
+      modalEl.style.setProperty("--anchor-x", anchorX + "px");
+      modalEl.style.setProperty("--anchor-y", anchorY + "px");
+
+      // Страховка от переполнения по X (12px поля)
+      const vpW = window.innerWidth;
+      const modalW = 348; // совпадает с CSS
+      let left = anchorX - modalW / 2;
+      if (left < 12)
+        modalEl.style.setProperty("--anchor-x", 12 + modalW / 2 + "px");
+      if (left + modalW > vpW - 12)
+        modalEl.style.setProperty("--anchor-x", vpW - 12 - modalW / 2 + "px");
+    }
+
+    function openModal() {
+      if (isOpen) return;
+      modalEl.classList.add("modal--popover"); // режим поповера
+      lastActiveEl = document.activeElement;
+      modalEl.setAttribute("aria-hidden", "false");
+      modalEl.classList.add("is-open");
+      document.body.dataset.prevOverflow = document.body.style.overflow || "";
+      document.body.style.overflow = "hidden";
+      isOpen = true;
+      dialogEl.focus({ preventScroll: true });
+    }
+
+    function closeModal() {
+      if (!isOpen) return;
+      modalEl.classList.remove("is-open");
+      modalEl.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = document.body.dataset.prevOverflow || "";
+      delete document.body.dataset.prevOverflow;
+      isOpen = false;
+      if (lastActiveEl?.focus) lastActiveEl.focus({ preventScroll: true });
+    }
+
+    // Клик по триггеру: считаем позицию и открываем
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest(TRIGGER_SEL);
+      if (
+        !a ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
+      e.preventDefault();
+      anchorEl = a;
+      positionToAnchor(anchorEl);
+      openModal();
+    });
+
+    // Перепозиционирование при ресайзе/скролле
+    window.addEventListener(
+      "resize",
+      () => isOpen && positionToAnchor(anchorEl)
+    );
+    window.addEventListener(
+      "scroll",
+      () => isOpen && positionToAnchor(anchorEl),
+      { passive: true }
+    );
+
+    // Закрытие по оверлею/ESC/клик по опциям — как было
+    overlayEl?.addEventListener("click", (e) => {
+      if (e.target === overlayEl) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        e.preventDefault();
+        closeModal();
+      }
+    });
+    dialogEl.addEventListener("click", (e) => {
+      const link = e.target.closest("a, button");
+      if (link) closeModal(); // не блокируем переход
+    });
+  })();
+  // ===== Prices Table Inline Accordion (описание внутри первой ячейки) =====
+  (() => {
+    "use strict";
+
+    const DEFAULT_TEXT =
+      "У каждого сайта есть всего 4 секунды, чтобы задержать пользователя. Мы знаем, как с помощью лендинга не только привлечь внимание, но и увеличить продажи в несколько раз.";
+
+    // получить текст для строки: приоритет data-details на <tr>
+    function getDetailsText(tr) {
+      const custom = tr.getAttribute("data-details");
+      return custom && custom.trim() ? custom.trim() : DEFAULT_TEXT;
+    }
+
+    // закрыть все раскрытые описания внутри одной таблицы
+    function closeAllInTable(table) {
+      table.querySelectorAll(".prices__cell-details.is-open").forEach((el) => {
+        el.classList.remove("is-open");
+      });
+      table
+        .querySelectorAll("td.is-toggle[aria-expanded='true']")
+        .forEach((td) => {
+          td.setAttribute("aria-expanded", "false");
+        });
+      table
+        .querySelectorAll("tr.has-open")
+        .forEach((tr) => tr.classList.remove("has-open"));
+    }
+
+    // создать (или вернуть существующий) контейнер описания внутри первой ячейки
+    function ensureDetailContainer(nameCell) {
+      // оборачиваем исходный текст (название услуги) — по желанию
+      if (!nameCell.querySelector(".prices__cell-title")) {
+        const title = document.createElement("span");
+        title.className = "prices__cell-title";
+        // перемещаем весь текст ячейки в title, сохраним другие узлы, если были
+        while (nameCell.firstChild) {
+          title.appendChild(nameCell.firstChild);
+        }
+        nameCell.appendChild(title);
+      }
+
+      let details = nameCell.querySelector(".prices__cell-details");
+      if (!details) {
+        details = document.createElement("div");
+        details.className = "prices__cell-details";
+        nameCell.appendChild(details);
+      }
+      return details;
+    }
+
+    function initTable(table) {
+      const rows = table.querySelectorAll("tbody > tr");
+      rows.forEach((tr) => {
+        const nameCell = tr.cells[0];
+        if (!nameCell) return;
+
+        // делаем первую ячейку интерактивной
+        nameCell.classList.add("is-toggle");
+        nameCell.setAttribute("role", "button");
+        nameCell.setAttribute("tabindex", "0");
+        nameCell.setAttribute("aria-expanded", "false");
+
+        // предзаводим контейнер описания (пустой и скрытый)
+        const details = ensureDetailContainer(nameCell);
+
+        const open = () => {
+          const tableEl = tr.closest("table");
+          // сначала закрываем остальные в этой таблице
+          closeAllInTable(tableEl);
+
+          // наполняем текстом и открываем
+          details.textContent = getDetailsText(tr);
+          details.classList.add("is-open");
+          nameCell.setAttribute("aria-expanded", "true");
+          tr.classList.add("has-open");
+        };
+
+        const close = () => {
+          details.classList.remove("is-open");
+          nameCell.setAttribute("aria-expanded", "false");
+          tr.classList.remove("has-open");
+        };
+
+        const toggle = (e) => {
+          e.preventDefault();
+          const expanded = nameCell.getAttribute("aria-expanded") === "true";
+          if (expanded) close();
+          else open();
+        };
+
+        nameCell.addEventListener("click", toggle);
+        nameCell.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") toggle(e);
+        });
+      });
+    }
+
+    // Инициализация для всех таблиц в раскрывающихся панелях
+    const tables = document.querySelectorAll(".prices__panel .prices__table");
+    tables.forEach(initTable);
+
+    // Когда панель скрывается (атрибут hidden) — закрываем все описания внутри неё
+    const panels = document.querySelectorAll(".prices__panel");
+    const mo = new MutationObserver((list) => {
+      for (const m of list) {
+        if (m.type === "attributes" && m.attributeName === "hidden") {
+          const panel = m.target;
+          if (panel.hidden) {
+            panel.querySelectorAll(".prices__table").forEach(closeAllInTable);
+          }
+        }
+      }
+    });
+    panels.forEach((panel) => mo.observe(panel, { attributes: true }));
+  })();
+  // ===== Order Form (order.html) =====
+  (() => {
+    "use strict";
+    const form = document.getElementById("orderForm");
+    if (!form) return;
+
+    const statusEl = form.querySelector(".of-status");
+    const submitBtn = form.querySelector(".of-submit");
+    const phoneInput = form.querySelector(".js-phone");
+
+    // Телефон: лёгкая маска под +7 (999) 999-99-99
+    phoneInput?.addEventListener("input", (e) => {
+      let v = e.target.value.replace(/\D/g, "");
+      if (v.startsWith("8")) v = "7" + v.slice(1);
+      if (!v.startsWith("7")) v = "7" + v;
+      const p = v.padEnd(11, "_").slice(0, 11).split("");
+      e.target.value =
+        `+7 (${p[1]}${p[2]}${p[3]}) ${p[4]}${p[5]}${p[6]}-${p[7]}${p[8]}-${p[9]}${p[10]}`.replace(
+          /[_-]+$/,
+          ""
+        );
+    });
+
+    // Валидация простая
+    function showError(input, msg) {
+      const err = input.closest(".of-field")?.querySelector(".of-error");
+      if (err) err.textContent = msg || "";
+      input.setAttribute("aria-invalid", msg ? "true" : "false");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // honeypot
+      if (form.company && form.company.value.trim() !== "") return;
+
+      let ok = true;
+      ["name", "phone", "email"].forEach((n) => {
+        const el = form.elements[n];
+        if (!el) return;
+        if (!el.value.trim()) {
+          ok = false;
+          showError(el, "Заполните поле");
+        } else showError(el, "");
+      });
+      if (!form.elements["consent"].checked) {
+        ok = false;
+        alert("Подтвердите согласие на обработку данных");
+      }
+      if (!ok) return;
+
+      // собираем данные
+      const services = [
+        ...form.querySelectorAll('input[name="services"]:checked'),
+      ].map((i) => i.value);
+      const data = {
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        services,
+        budget: form.budget.value || "",
+        task: form.task.value.trim(),
+      };
+
+      // Отправка: замените на ваш эндпоинт
+      const SUBMIT_URL = ""; // например: "/api/order" или Formspree URL
+      submitBtn.disabled = true;
+      statusEl.hidden = false;
+      statusEl.textContent = "Отправляем…";
+
+      try {
+        if (SUBMIT_URL) {
+          const res = await fetch(SUBMIT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        } else {
+          // пока эндпоинта нет — просто залогируем
+          console.log("[OrderForm] payload:", data);
+        }
+        statusEl.textContent = "Заявка отправлена. Свяжемся с вами!";
+        form.reset();
+        form
+          .querySelectorAll(".chip input")
+          .forEach((i) => (i.checked = false));
+      } catch (err) {
+        statusEl.textContent = "Ошибка отправки. Попробуйте ещё раз.";
+        console.warn("[OrderForm] submit error:", err);
+      } finally {
+        submitBtn.disabled = false;
+        setTimeout(() => (statusEl.hidden = true), 4000);
+      }
+    });
+  })();
+  // ===== Order "Need" circles: chips <-> 8 rings mapping =====
+  (() => {
+    "use strict";
+    const section =
+      document.querySelector(".order-form__need-inner") ||
+      document.querySelector(".order-form__section .order-form__need-inner");
+    if (!section) return;
+
+    const circles = section.querySelectorAll(
+      ".order-form__decor .js-circles circle"
+    );
+    const chipLabels = section.querySelectorAll(".chip-group .chip");
+    const inputs = section.querySelectorAll(
+      '.chip-group input[type="checkbox"]'
+    );
+    if (!circles.length || !chipLabels.length) return;
+
+    // Визуальные константы (как в .prices)
+    const BASE = "rgba(164, 119, 100, 0.5)"; // обычное 1px
+    const HOVER = "rgba(164, 119, 100, 1)"; // hover 1px
+    const ACTIVE = "rgba(242, 238, 236, 1)"; // выбранное 3px
+
+    // Состояние
+    const assigned = new Map(); // input -> circleIndex
+    const used = new Set(); // занятые индексы колец
+
+    // Helpers: стили колец
+    function setBase(i) {
+      const c = circles[i];
+      if (!c) return;
+      c.style.stroke = BASE;
+      c.style.strokeWidth = "1px";
+      c.style.opacity = "1";
+      c.classList.remove("is-active", "is-hover");
+    }
+    function setHover(i) {
+      const c = circles[i];
+      if (!c) return;
+      if (used.has(i)) return; // занято — не подсвечиваем hover
+      c.style.stroke = HOVER;
+      c.style.strokeWidth = "1px";
+      c.style.opacity = "1";
+      c.classList.add("is-hover");
+      c.classList.remove("is-active");
+    }
+    function clearHover(i) {
+      if (i == null || used.has(i)) return; // активные не трогаем
+      setBase(i);
+    }
+    function setActive(i) {
+      const c = circles[i];
+      if (!c) return;
+      c.style.stroke = ACTIVE;
+      c.style.strokeWidth = "3px";
+      c.style.opacity = "1";
+      c.classList.add("is-active");
+      c.classList.remove("is-hover");
+    }
+
+    function resetAll() {
+      circles.forEach((_, i) => setBase(i));
+    }
+    resetAll();
+
+    function nextFreeIndex() {
+      for (let i = 0; i < circles.length; i++) {
+        if (!used.has(i)) return i;
+      }
+      return -1;
+    }
+
+    // Наведение/фокус на чип — превью свободного кольца
+    chipLabels.forEach((label) => {
+      const input = label.querySelector('input[type="checkbox"]');
+      if (!input) return;
+
+      function handleEnter() {
+        // если чип уже закреплён — подсветим его кольцо активным (ничего не меняем)
+        const own = assigned.get(input);
+        if (own != null) {
+          setActive(own);
+          return;
+        }
+
+        // иначе подсветим ближайшее свободное
+        const idx = nextFreeIndex();
+        if (idx === -1) return;
+        label.dataset.previewIndex = String(idx);
+        setHover(idx);
+      }
+
+      function handleLeave() {
+        const own = assigned.get(input);
+        if (own != null) {
+          setActive(own);
+          return;
+        } // остаётся активным
+        const p = label.dataset.previewIndex;
+        if (p !== undefined) {
+          clearHover(Number(p));
+          delete label.dataset.previewIndex;
+        }
+      }
+
+      label.addEventListener("mouseenter", handleEnter);
+      label.addEventListener("mouseleave", handleLeave);
+      label.addEventListener("focusin", handleEnter);
+      label.addEventListener("focusout", handleLeave);
+    });
+
+    // Изменение чекбоксов — закрепление/освобождение колец
+    inputs.forEach((input) => {
+      input.addEventListener("change", (e) => {
+        // Снятие — освобождаем своё кольцо
+        if (!input.checked) {
+          const own = assigned.get(input);
+          if (own != null) {
+            assigned.delete(input);
+            used.delete(own);
+            setBase(own);
+          }
+          return;
+        }
+
+        // Выбор — если уже закреплён, просто подтверждаем
+        if (assigned.has(input)) {
+          setActive(assigned.get(input));
+          return;
+        }
+
+        // Если лимит (все 8 заняты) — откатываем чекбокс
+        if (used.size >= circles.length) {
+          input.checked = false;
+          // по UX можно мигнуть чем-то, но по ТЗ «ничего не происходит»
+          return;
+        }
+
+        // Закрепляем ближайшее свободное (по порядку)
+        const p = input.closest(".chip")?.dataset?.previewIndex;
+        const idx = p !== undefined ? Number(p) : nextFreeIndex();
+        if (idx === -1) {
+          input.checked = false;
+          return;
+        }
+
+        assigned.set(input, idx);
+        used.add(idx);
+        setActive(idx);
+
+        // подчистим превью, если было
+        const chip = input.closest(".chip");
+        if (chip && "previewIndex" in chip.dataset)
+          delete chip.dataset.previewIndex;
+      });
+    });
+
+    // Если форму сбросят — всё вернуть к базовому
+    const form = section.closest("form");
+    form?.addEventListener("reset", () => {
+      assigned.clear();
+      used.clear();
+      resetAll();
+      // чипы снимутся сами через reset
+    });
   })();
 });

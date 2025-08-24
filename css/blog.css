@@ -1,0 +1,38 @@
+#main {
+  margin-top: 97px;
+  padding-inline: 50px;
+}
+.post__top {
+  display: flex;
+  margin-top: 100px;
+}
+.post__title-wrapper,
+.post__top-image {
+  width: 50%;
+  height: auto;
+}
+.post__title-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.post__top-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+  max-width: 527px;
+  line-height: normal;
+}
+.post__top-description {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 25px;
+}
+.post__dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 15px;
+}

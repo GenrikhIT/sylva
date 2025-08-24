@@ -1,0 +1,39 @@
+/* Extracted footer styles */
+.footer{
+  padding: 25px 0;
+}.footer__content{
+  display: flex;
+  flex-direction: column;
+}.footer__title{
+  font-size: 4.375rem;
+  color: var(--color-secondary);
+}.footer__title:hover{
+  color: var(--color-primary);
+}.footer__email{
+  font-size: 4.375rem;
+  font-weight: 700;
+}.footer__email:hover{
+  text-decoration: underline;
+}.footer__phone{
+  font-size: 4.375rem;
+  margin-top: 50px;
+  margin-left: auto;
+}.footer__phone:hover{
+  color: var(--color-secondary);
+}.footer__socials{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 25px 0 50px auto;
+}.footer__socials a:hover path{
+  fill: var(--color-secondary);
+}.footer__bottom{
+  display: flex;
+  gap: 10px;
+  font-size: 0.75rem;
+  margin-left: auto;
+  margin-bottom: 25px;
+}.footer__privacy:hover{
+  color: var(--color-secondary);
+}

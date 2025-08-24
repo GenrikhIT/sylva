@@ -1,0 +1,447 @@
+/* .header {
+  background-color: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid var(--color-secondary, #0c6);
+} */
+header.header--hero {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-bottom: none;
+}
+header.header--hero,
+header.header--hero a,
+header.header--hero button {
+  color: #03281d;
+}
+header.header--hero svg path {
+  fill: #03281d;
+}
+
+header.header--prices {
+  background-color: #03281d;
+  /* border-bottom: 1px solid #a47764; */
+}
+header.header--prices,
+header.header--prices a,
+header.header--prices button {
+  color: #f2eeec;
+}
+header.header--prices svg path {
+  fill: #f2eeec;
+}
+#main {
+  margin-top: 97px;
+  margin-bottom: 50px;
+}
+.order-form__container {
+  padding: 0;
+}
+.order-form__top {
+  display: flex;
+  margin-block: 50px;
+  height: 391px;
+  padding-inline: 50px;
+}
+.order-form__intro {
+  width: 50%;
+  padding-top: 20px;
+}
+
+.order-form__title {
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+.order-form__subtitle {
+  margin-top: 5px;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+/* сетка верхних полей справа, как в макете */
+.order-form__contacts {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+.of-field {
+  margin-bottom: 20px;
+}
+.of-input {
+  height: 74px;
+}
+.of-input {
+  width: 100%;
+  padding-inline: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(164, 119, 100, 1);
+  background: rgba(255, 255, 255, 0.85);
+  outline: none;
+  color: var(--color-primary);
+}
+.of-input::placeholder {
+  color: rgba(41, 38, 58, 0.4);
+}
+.of-input:focus,
+.of-textarea:focus {
+  border-color: var(--color-secondary, #0c6);
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--color-secondary, #0c6) 25%, transparent);
+}
+
+.of-error {
+  color: #c0392b;
+  min-height: 1em;
+  font-size: 12px;
+}
+
+.order-form__section {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  padding-inline: 50px;
+}
+.order-form__h2 {
+  display: inline-block;
+  margin: 20px 0 5px 0;
+  font-size: 2.5rem;
+}
+
+.order-form__need-inner {
+  display: flex;
+  height: 320px;
+}
+
+.order-form__decor,
+.chip-group {
+  width: 50%;
+  height: 100%;
+}
+.order-form__decor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.order-form__decor svg {
+  padding: 2px;
+}
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+  justify-content: space-between; /* то, что нужно */
+}
+.chip label {
+  display: inline-flex;
+  height: 44px;
+  flex: 0 1 120px;
+}
+.chip > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.chip > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--color-secondary, #1aa17a);
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s ease,
+    border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+}
+.chip > input:hover + span {
+  background-color: rgba(164, 119, 100, 0.35);
+}
+.chip > input:checked + span {
+  background-color: rgba(164, 119, 100, 0.35);
+  border-radius: 30px;
+}
+.section__budget {
+  padding-top: 100px;
+}
+.radio-grid {
+  margin-left: auto;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px 42px;
+}
+.budget-1 {
+  order: 1;
+}
+.budget-2 {
+  order: 3;
+}
+.budget-3 {
+  order: 5;
+}
+.budget-4 {
+  order: 2;
+}
+.budget-5 {
+  order: 4;
+}
+.budget-6 {
+  order: 6;
+}
+.radio {
+  font-size: 1.375rem;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+/* Токены по умолчанию (можно переопределять на модификаторах .budget-* ) */
+.radio {
+  --size: 22px;
+  --ring: 2px;
+  --text-gap: 18px;
+
+  --ring-color: rgba(255, 255, 255, 0.85); /* рамка в невыбранном */
+  --ring-hover: #fff; /* рамка при hover */
+
+  /* акцент для эффектов hover (как было) */
+  --accent: rgba(164, 119, 100, 0.35);
+
+  /* фон кружка по умолчанию (как было) */
+  --bg-unchecked: var(--color-primary);
+
+  /* фон для disabled */
+  --bg-disabled: rgba(242, 238, 236, 0.35);
+
+  --focus: color-mix(in srgb, var(--accent) 40%, white);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--text-gap);
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio > input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  box-sizing: border-box;
+
+  /* Вариант 2: реальная рамка вместо inset box-shadow */
+  border: var(--ring) solid var(--ring-color);
+  box-shadow: none;
+
+  background-color: var(--bg-unchecked); /* светлый фон по умолчанию */
+  flex-shrink: 0;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease,
+    box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+.radio:hover > input[type="radio"] {
+  /* вместо тени — подсветка рамки */
+  border-color: var(--ring-hover);
+  background: rgba(242, 238, 236, 0.35);
+}
+
+.radio:hover > span {
+  color: var(--color-secondary);
+}
+
+.radio > input[type="radio"]:active {
+  transform: scale(0.96);
+}
+
+/* === ИЗМЕНЕНО: CHECKED ===
+   Белый фон, рамка и центральная точка 4px цветом var(--color-secondary),
+   без белого «ореола» по краю */
+.radio > input[type="radio"]:checked {
+  border-color: var(--color-secondary);
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--color-secondary) 0 2px,
+    /* точка 4px (радиус 2px) */ #fff 2px 100%
+  ); /* остальное — белое */
+  background-color: #fff;
+  background-clip: padding-box; /* ключевое: не даём белому лезть под border */
+  box-shadow: none;
+}
+
+/* чтобы hover не перебивал checked */
+.radio:hover > input[type="radio"]:checked {
+  border-color: var(--color-secondary);
+  box-shadow: none;
+}
+
+.radio > input[type="radio"]:focus-visible {
+  outline: 1px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* disabled */
+.radio > input[type="radio"]:disabled {
+  border-color: var(--bg-disabled);
+  background-color: var(--bg-disabled);
+  background-image: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.radio > span {
+  line-height: 1.1;
+}
+
+.of-field--textarea {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100px;
+  align-content: center;
+  margin-left: auto;
+  font-size: 1.375rem;
+  line-height: 1.1;
+}
+.of-textarea {
+  box-sizing: border-box;
+  height: 100%;
+}
+.of-textarea:placeholder-shown {
+  /* (высота поля - высота строки) / 2  → верхний отступ для выравнивания */
+  padding-top: 38px;
+}
+.of-textarea::placeholder {
+  color: rgba(242, 238, 236, 0.52);
+  opacity: 1;
+}
+.section__task {
+  padding-bottom: 50px;
+}
+.of-textarea {
+  width: 100%;
+  padding-inline: 50px;
+  border-radius: 10px;
+  border: 1px solid rgba(164, 119, 100, 1);
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  color: var(--color-primary);
+}
+.order-form__actions {
+  display: grid;
+  gap: 23px;
+  width: 382px;
+  margin: 24px auto 0;
+  text-align: center;
+}
+.of-submit {
+  width: 100%;
+  height: 54px;
+  color: var(--color-light);
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  border: 1px solid var(--color-secondary);
+  font-size: 1.375rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-radius 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+}
+
+.of-submit::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* = top:0; right:0; bottom:0; left:0 */
+  background-color: var(--color-secondary);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.24, 0.69, 0.33, 0.93);
+  z-index: 1;
+  border-radius: inherit;
+}
+.of-submit:hover {
+  border-radius: 30px;
+}
+/* текст поверх заливки */
+.of-submit .btn__label,
+.of-submit span {
+  /* на случай без .btn__label */
+  position: relative;
+  z-index: 2;
+}
+
+/* запуск заливки */
+.of-submit:hover::before {
+  transform: translateY(0);
+}
+.consent {
+  display: flex;
+  gap: 5px;
+  align-items: flex-start;
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+/* Кастомный чекбокс */
+.consent input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%; /* круг */
+  border: 1px solid rgba(3, 40, 29, 1); /* обводка 1px */
+  background-color: transparent; /* фон в обычном состоянии */
+  flex-shrink: 0;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+/* hover/active (необязательно, аккуратнее на тёмном фоне) */
+.consent input[type="checkbox"]:hover {
+  box-shadow: 0 0 0 2px rgba(3, 40, 29, 0.15) inset;
+}
+.consent input[type="checkbox"]:active {
+  transform: scale(0.96);
+}
+
+/* focus-visible для клавиатуры */
+.consent input[type="checkbox"]:focus-visible {
+  outline: 2px solid color-mix(in srgb, rgba(3, 40, 29, 1) 35%, white);
+  outline-offset: 2px;
+}
+
+/* Включён: фон — rgba(3,40,29,1) и белая галочка */
+.consent input[type="checkbox"]:checked {
+  background-color: rgba(3, 40, 29, 1);
+  border-color: rgba(3, 40, 29, 1);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4.5 10 8.5 14 15.5 6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px; /* подгон размера галочки при 18px кружке */
+}
+
+/* Disabled (серее и без интерактива) */
+.consent input[type="checkbox"]:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* вспомогательные */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.of-status {
+  text-align: center;
+  margin-top: 10px;
+}
