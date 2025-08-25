@@ -60,6 +60,7 @@ html {
 }
 .section-subtitle {
   margin: 5px 0 25px 0;
+  width: 40%;
 }
 .portfolio__grid {
   display: grid;
