@@ -79,23 +79,105 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== About "Learn More" =====
-  const aboutBtn = document.querySelector(".about__cta");
-  const aboutContent = document.querySelector(".about__content");
-  if (aboutBtn && aboutContent) {
-    aboutBtn.addEventListener("click", () => {
-      const hiddenTexts = aboutContent.querySelectorAll(
-        '.about__text[style*="display: none"]'
-      );
-      hiddenTexts.forEach((text) => {
-        text.style.display = "block";
-        text.style.opacity = 0;
-        text.style.transition = "opacity 0.5s ease";
-        requestAnimationFrame(() => (text.style.opacity = 1));
-      });
-      aboutBtn.style.display = "none";
+  // ===== About "Learn More" (image first-in / last-out) =====
+  (() => {
+    const wrap = document.querySelector(".about__more-wrap");
+    const moreBtn = document.querySelector(".about__text-wrap .about__cta"); // кнопка справа «Узнать больше»
+    const lessBtn = wrap?.querySelector(".about__cta-more"); // кнопка слева «Узнать меньше»
+    const moreText = wrap?.querySelector(".about__more-text");
+    const process =
+      wrap?.querySelector("#about-process") ||
+      wrap?.querySelector(".about__process");
+    const img = wrap?.querySelector(".about__more-img img");
+
+    if (!wrap || !moreBtn || !lessBtn || !moreText || !process || !img) return;
+
+    // Базовые классы/состояния
+    img.classList.toggle("about__img-fade", true); // упр. opacity через CSS
+    if (moreText.style.display === "none")
+      moreText.style.removeProperty("display");
+    if (lessBtn.style.display === "none")
+      lessBtn.style.removeProperty("display");
+
+    const revealItems = [
+      process.querySelector("h3"),
+      ...process.querySelectorAll(".step"),
+    ].filter(Boolean);
+
+    revealItems.forEach((el) => {
+      el.classList.add("reveal");
+      el.classList.remove("reveal--in");
     });
-  }
+
+    moreText.classList.add("is-collapsed"); // контент закрыт по умолчанию
+    lessBtn.classList.add("is-hidden"); // «Узнать меньше» скрыта
+    img.classList.remove("is-bright"); // картинка тусклая (opacity ~0.02 в CSS)
+
+    // Тайминги (если надо — подстрой тут)
+    const DUR = 280; // длительность анимации элемента
+    const STAGGER = 140; // ступенчатая задержка между элементами
+    const IMG_DUR = 380; // длительность проявления/затухания картинки
+
+    let isBusy = false;
+
+    // ——— ОТКРЫТЬ («Узнать больше») ———
+    moreBtn.addEventListener("click", () => {
+      if (isBusy) return;
+      isBusy = true;
+
+      moreBtn.setAttribute("aria-expanded", "true");
+      moreBtn.classList.add("is-hidden");
+      lessBtn.classList.remove("is-hidden");
+
+      moreText.classList.remove("is-collapsed");
+      moreText.style.removeProperty("display");
+
+      // 1) СНАЧАЛА — картинка проявляется
+      img.classList.add("is-bright");
+
+      // 2) ПОСЛЕ КАРТИНКИ — по очереди показываем заголовок и шаги
+      setTimeout(() => {
+        revealItems.forEach((el, i) => {
+          setTimeout(() => el.classList.add("reveal--in"), i * STAGGER);
+        });
+
+        const totalIn = (revealItems.length - 1) * STAGGER + DUR;
+        setTimeout(() => {
+          isBusy = false;
+        }, totalIn + 60);
+      }, IMG_DUR);
+    });
+
+    // ——— ЗАКРЫТЬ («Узнать меньше») ———
+    lessBtn.addEventListener("click", () => {
+      if (isBusy) return;
+      isBusy = true;
+
+      // скрываем кнопку сразу
+      lessBtn.classList.add("is-hidden");
+
+      // 1) СПЕРВА — сворачиваем элементы в обратном порядке
+      const reversed = [...revealItems].reverse();
+      reversed.forEach((el, i) => {
+        setTimeout(() => el.classList.remove("reveal--in"), i * STAGGER);
+      });
+
+      const totalOut = (reversed.length - 1) * STAGGER + DUR;
+
+      // 2) ПОСЛЕ ШАГОВ — только затем гасим картинку
+      setTimeout(() => {
+        img.classList.remove("is-bright");
+      }, totalOut + 20);
+
+      // 3) Закрываем контейнер и возвращаем кнопку «Узнать больше»
+      setTimeout(() => {
+        moreText.classList.add("is-collapsed");
+        moreBtn.classList.remove("is-hidden");
+        moreBtn.setAttribute("aria-expanded", "false");
+        isBusy = false;
+      }, totalOut + IMG_DUR + 60);
+    });
+  })();
 
   // ===== Prices Accordion =====
   const initPricesAccordion = () => {
@@ -1033,8 +1115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const statusEl = form.querySelector(".of-status");
     const submitBtn = form.querySelector(".of-submit");
     const phoneInput = form.querySelector(".js-phone");
+    const servicesSelect = document.getElementById("servicesSelect"); // hidden <select multiple>, если есть
 
-    // Телефон: лёгкая маска под +7 (999) 999-99-99
+    // Маска телефона под +7 (999) 999-99-99
     phoneInput?.addEventListener("input", (e) => {
       let v = e.target.value.replace(/\D/g, "");
       if (v.startsWith("8")) v = "7" + v.slice(1);
@@ -1047,19 +1130,33 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 
-    // Валидация простая
     function showError(input, msg) {
       const err = input.closest(".of-field")?.querySelector(".of-error");
       if (err) err.textContent = msg || "";
       input.setAttribute("aria-invalid", msg ? "true" : "false");
     }
 
+    // Собираем услуги из hidden <select multiple>, fallback — чекбоксы
+    function collectServices() {
+      if (servicesSelect) {
+        return Array.from(servicesSelect.selectedOptions).map((o) =>
+          o.value.trim()
+        );
+      }
+      return Array.from(
+        form.querySelectorAll('input[name="services"]:checked')
+      ).map((i) => i.value.trim());
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // honeypot
-      if (form.company && form.company.value.trim() !== "") return;
+      // honeypot: если заполнен — тихо выходим
+      if (form.company && form.company.value.trim() !== "") {
+        return;
+      }
 
+      // Базовая валидация
       let ok = true;
       ["name", "phone", "email"].forEach((n) => {
         const el = form.elements[n];
@@ -1069,57 +1166,69 @@ document.addEventListener("DOMContentLoaded", () => {
           showError(el, "Заполните поле");
         } else showError(el, "");
       });
-      if (!form.elements["consent"].checked) {
+
+      const consentEl = form.elements["consent"];
+      if (!(consentEl && consentEl.checked)) {
         ok = false;
         alert("Подтвердите согласие на обработку данных");
       }
       if (!ok) return;
 
-      // собираем данные
-      const services = [
-        ...form.querySelectorAll('input[name="services"]:checked'),
-      ].map((i) => i.value);
+      // Payload под send.php
       const data = {
         name: form.name.value.trim(),
         phone: form.phone.value.trim(),
         email: form.email.value.trim(),
-        services,
-        budget: form.budget.value || "",
-        task: form.task.value.trim(),
+        services: collectServices(), // массив значений
+        budget: (form.budget?.value || "").trim(),
+        task: (form.task?.value || "").trim(),
+        consent: true, // важно для валидации на сервере
+        company: form.company?.value?.trim() || "", // honeypot (пусто у людей)
       };
 
-      // Отправка: замените на ваш эндпоинт
-      const SUBMIT_URL = ""; // например: "/api/order" или Formspree URL
+      const SUBMIT_URL = "/send.php";
+
       submitBtn.disabled = true;
       statusEl.hidden = false;
       statusEl.textContent = "Отправляем…";
 
       try {
-        if (SUBMIT_URL) {
-          const res = await fetch(SUBMIT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        } else {
-          // пока эндпоинта нет — просто залогируем
-          console.log("[OrderForm] payload:", data);
+        const res = await fetch(SUBMIT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        // send.php возвращает JSON {ok:true} либо {error:"...", fields?:[]}
+        const json = await res.json().catch(() => ({}));
+
+        if (!res.ok || json.error) {
+          const msg = json.error || `Ошибка отправки (HTTP ${res.status})`;
+          throw new Error(msg);
         }
+
         statusEl.textContent = "Заявка отправлена. Свяжемся с вами!";
         form.reset();
+
+        // Синхронизируем UI после reset:
         form
-          .querySelectorAll(".chip input")
+          .querySelectorAll(".chip input[type='checkbox']")
           .forEach((i) => (i.checked = false));
+        if (servicesSelect) {
+          Array.from(servicesSelect.options).forEach(
+            (o) => (o.selected = false)
+          );
+        }
       } catch (err) {
-        statusEl.textContent = "Ошибка отправки. Попробуйте ещё раз.";
         console.warn("[OrderForm] submit error:", err);
+        statusEl.textContent = "Ошибка отправки. Попробуйте ещё раз.";
       } finally {
         submitBtn.disabled = false;
         setTimeout(() => (statusEl.hidden = true), 4000);
       }
     });
   })();
+
   // ===== Order "Need" circles: chips <-> 8 rings mapping =====
   (() => {
     "use strict";
@@ -1285,4 +1394,73 @@ document.addEventListener("DOMContentLoaded", () => {
       // чипы снимутся сами через reset
     });
   })();
+  const burger = document.getElementById("burgerBtn");
+  const menu = document.getElementById("mobileMenu");
+
+  if (!burger || !menu) return;
+
+  const links = menu.querySelectorAll(".nav__link");
+  let lastFocused = null;
+
+  const openMenu = () => {
+    lastFocused = document.activeElement;
+    burger.setAttribute("aria-expanded", "true");
+    menu.setAttribute("aria-hidden", "false");
+    // блокируем прокрутку страницы
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    // переводим фокус на первый пункт меню (если есть)
+    const firstLink = menu.querySelector(".nav__link");
+    if (firstLink) firstLink.focus();
+    // вешаем ловушки закрытия
+    document.addEventListener("keydown", onKeydownEscape);
+    document.addEventListener("click", onClickOutside, true);
+  };
+
+  const closeMenu = () => {
+    burger.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
+    // возвращаем прокрутку
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    // возвращаем фокус туда, откуда пришли
+    if (lastFocused && typeof lastFocused.focus === "function") {
+      lastFocused.focus();
+    } else {
+      burger.focus();
+    }
+    // снимаем ловушки
+    document.removeEventListener("keydown", onKeydownEscape);
+    document.removeEventListener("click", onClickOutside, true);
+  };
+
+  const toggleMenu = () => {
+    const isHidden = menu.getAttribute("aria-hidden") !== "false";
+    isHidden ? openMenu() : closeMenu();
+  };
+
+  // Закрытие по клику вне меню
+  const onClickOutside = (e) => {
+    // если клик произошёл внутри меню или по бургеру — игнор
+    if (menu.contains(e.target) || burger.contains(e.target)) return;
+    closeMenu();
+  };
+
+  // Закрытие по Esc
+  const onKeydownEscape = (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      closeMenu();
+    }
+  };
+
+  // Триггеры
+  burger.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleMenu();
+  });
+
+  // Закрытие по клику на любой пункт меню
+  links.forEach((a) => {
+    a.addEventListener("click", () => closeMenu());
+  });
 });

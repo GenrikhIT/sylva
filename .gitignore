@@ -16,3 +16,5 @@ coverage/
 # Env / misc
 .env
 *.log
+
+send.php

@@ -112,9 +112,13 @@ header.header--prices svg path {
 }
 
 .order-form__decor,
-.chip-group {
+.services-block {
   width: 50%;
   height: 100%;
+}
+.chip-group {
+  width: 100%;
+  height: auto;
 }
 .order-form__decor {
   display: flex;
@@ -444,4 +448,160 @@ header.header--prices svg path {
 .of-status {
   text-align: center;
   margin-top: 10px;
+}
+.select-group {
+  display: none;
+}
+@media (max-width: 1279px) {
+  .radio {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .order-form__section,
+  .order-form__top,
+  .order-form__actions {
+    padding-inline: 15px;
+  }
+  .order-form__need-inner {
+    height: auto;
+  }
+  .radio-grid {
+    grid-template-columns: repeat(1fr);
+    gap: 25px 42px;
+    margin-top: 25px;
+  }
+  .of-field--textarea {
+    width: 461px;
+    margin-inline: auto;
+    margin-top: 25px;
+  }
+}
+
+/* Basic responsive utilities */
+@media (max-width: 767px) {
+  .order-form__top {
+    flex-direction: column;
+    height: auto;
+    gap: 25px;
+  }
+  .order-form__intro,
+  .order-form__contacts {
+    width: 100%;
+  }
+
+  .order-form__need-inner {
+    flex-direction: column;
+  }
+  .order-form__decor,
+  .services-block {
+    width: 100%;
+  }
+  .order-form__decor {
+    margin-top: 25px;
+    margin-bottom: 14px;
+  }
+  .section__budget,
+  .section__task {
+    padding-top: 50px;
+  }
+  .of-field--textarea {
+    width: 100%;
+  }
+  .radio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    font-size: 1.125rem;
+  }
+}
+@media (max-width: 479px) {
+  .chip-group {
+    display: none;
+  }
+  .select-group {
+    display: block;
+  }
+  .order-form__actions {
+    width: 100%;
+  }
+  .radio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================================================
+   SERVICES BLOCK — CLEAN DROPDOWN IMPLEMENTATION (desktop-first)
+   This block overrides any previous conflicting rules in this file.
+   ================================================================== */
+
+/* Hide native select UI entirely; only used for form submission sync */
+.select-group {
+  display: none !important;
+}
+
+/* Ensure chips are visible (they will live inside the dropdown panel on mobile) */
+.chip-group {
+  display: flex;
+}
+
+/* Toggle button: hidden on desktop, shown only on mobile */
+.services-dropdown__toggle {
+  display: none;
+  width: 100%;
+  text-align: center;
+  padding: 10px 14px;
+  border: 1px solid rgba(164, 119, 100, 1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-light);
+  cursor: pointer;
+}
+
+/* Panel: always open on desktop */
+.services-dropdown__panel {
+  overflow: visible;
+  max-height: none;
+  transition: none;
+  border: 0;
+  background: transparent;
+}
+
+/* Accessible focus */
+.services-dropdown__toggle:focus {
+  outline: none;
+}
+.services-dropdown__toggle:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Mobile ≤ 479px: show button and make panel collapsible */
+@media (max-width: 479px) {
+  .services-dropdown__toggle {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .services-dropdown__panel {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 220ms ease;
+    border: 1px solid rgba(164, 119, 100, 1);
+    border-radius: 10px;
+    background: #fff;
+  }
+  .services-dropdown__panel.is-open {
+    max-height: 420px;
+  }
+
+  .services-dropdown__panel .chip-group {
+    display: flex;
+    padding: 10px;
+    max-height: 400px;
+    overflow: auto;
+    background-color: var(--color-primary);
+  }
 }

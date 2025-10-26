@@ -1,2 +1,19 @@
 User-agent: *
-Disallow: /private/
+Allow: /
+
+# Служебные папки
+Disallow: /assets/
+Disallow: /css/
+Disallow: /js/
+Disallow: /images/
+
+# Служебные файлы
+Disallow: /send.php
+
+# Юридические документы (по желанию)
+Disallow: /cookies.html
+Disallow: /policies.html
+
+
+
+Sitemap: https://sylva-agency.ru/sitemap.xml

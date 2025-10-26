@@ -62,8 +62,8 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: 400;
+  line-height: 1.1;
 }
 
 p,
@@ -231,6 +231,7 @@ summary {
 }
 .header .container {
   height: 100%; /* занимает всю высоту header */
+  width: 100%;
   display: flex; /* делаем flex-контейнером */
   align-items: center; /* центрируем по вертикали */
 }
@@ -257,8 +258,8 @@ summary {
 }
 /* Hide mobile elements on desktop */
 .burger,
-.mobile-menu,
-.header .btn {
+/* .mobile-menu, */
+.header .nav__cta-mobile {
   display: none;
 }
 
@@ -274,24 +275,24 @@ summary {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   position: relative;
   overflow: hidden;
   width: 100%;
-  background-image: url("/images/background-first-screen2.png");
-  background-repeat: no-repeat;
-  background-size: auto 100%; /* высота 100%, ширина автоматически */
-  background-position: center;
+  /* background-image: url("/images/background-first-screen2.png"); */
+  /* background-repeat: no-repeat;
+  background-size: auto 100%; 
+  background-position: center; */
 }
 .hero__title {
   color: var(--color-light);
   font-family: "Inter", sans-serif;
-  font-size: 70px;
+  font-size: 55px;
   font-weight: 700;
   line-height: 1;
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-top: 199px;
+  margin-top: 100px;
 }
 
 .hero__logo {
@@ -393,6 +394,9 @@ summary {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  flex: 1;
+ 
 }
 
 .hero__video {
@@ -411,17 +415,15 @@ summary {
   transition: opacity 0.3s ease;
   will-change: opacity;
 }
-
+.hero__fallback-img {
+    display: none;
+    width: 100%;
+    height: auto;
+    /* Чтобы изображение вело себя так же, как видео */
+    object-fit: cover;
+}
 .hero__video-el.is-visible {
   opacity: 1;
-}
-
-/* Мягко гасим canvas, когда стартует видео */
-.hero__sphere {
-  transition: opacity 0.2s ease;
-}
-.hero__sphere.is-hidden {
-  opacity: 0;
 }
 
 /* Уважение к reduced motion — выключаем видео */
@@ -431,8 +433,158 @@ summary {
   }
 }
 
+/* Анимации для header и hero */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Применение анимаций (новый порядок + медленнее) */
+.hero__title {
+  animation: slideUp 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+  animation-delay: 0s; /* первым */
+}
+
+.header {
+  animation: slideDown 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+  animation-delay: 1.6s; /* после title */
+}
+
+.hero__subtitle {
+  animation: slideUp 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+  animation-delay: 1.6s; /* вместе с header */
+}
+
+.hero__buttons {
+  animation: fadeIn 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+  animation-delay: 3.2s; /* после header+subtitle */
+}
+
+.hero__social-media {
+  animation: fadeIn 1.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+  animation-delay: 4.8s; /* в конце */
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 66px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: rgba(245, 244, 241, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: backdrop-filter;
+
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 20px 0 10px 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.25rem;
+}
+.mobile-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  align-items: center;
+}
+.mobile-menu__social-media .social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+/* Убираем outline и рамки для всех ссылок в мобильном меню */
+.mobile-menu .nav__link {
+  outline: none;
+  border: none;
+}
+
+/* Убираем стандартные стили фокуса */
+.mobile-menu .nav__link:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* Дополнительно для WebKit браузеров (Safari, Chrome) */
+.mobile-menu .nav__link:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+/* Уважение к пользовательским настройкам движения */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .hero__title,
+  .hero__subtitle,
+  .hero__buttons,
+  .hero__social-media {
+    animation: fadeIn 0.5s ease forwards !important;
+    animation-delay: 0.1s !important;
+  }
+}
+@media (max-width: 1279px) {
+  .nav__list {
+    gap: 45px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .container {
+    padding-inline: 15px;
+  }
+  .hero__title {
+    font-size: 2rem;
+  }
+  .hero__subtitle {
+    font-size: 1.125rem;
+  }
+  .nav__list {
+    gap: 25px;
+  }
+}
 /* Basic responsive utilities */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .hero__social-media {
+    display: none;
+  }
   .nav__list {
     display: none;
   }
@@ -440,8 +592,59 @@ summary {
   .burger {
     display: block;
   }
-
+  .header {
+    height: 66px;
+    width: 100%;
+  }
+  .header .logo svg {
+    height: 59px;
+    width: auto;
+  }
+  .header .nav__cta-mobile {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.1;
+    border: 1px solid rgba(164, 119, 100, 1);
+    border-radius: 10px;
+    padding: 11px 15px;
+  }
+}
+@media (max-width: 479px) {
+  .nav {
+    min-width: 0;
+    gap: 6px; /* уменьшить расстояние между элементами */
+  }
+  .header .logo svg {
+    height: auto;
+    width: 100px;
+  }
+  .header .nav__cta-mobile {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+  }
+  .nav__cta-mobile {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 45vw; /* не даём кнопке распирать строку */
+    white-space: nowrap; /* если всё же перенос не желателен */
+    overflow: hidden;
+    text-overflow: ellipsis; /* а это — на случай длинной локали */
+  }
+      .hero__video-el {
+        display: none; /* Скрываем видео */
+    }
+    .hero__fallback-img {
+        display: block; /* Показываем изображение */
+    }
+  .hero__buttons {
+    flex-direction: column;
+  }
+  .burger {
+    flex: 0 0 auto;
+  }
   .hero__title {
-    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-size: 1.375rem;
   }
 }

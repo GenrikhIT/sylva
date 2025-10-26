@@ -1,0 +1,28 @@
+<article class="project-modal" data-fragment="modal" aria-labelledby="project-title">
+
+    <!-- Изображение №1 — загружается сразу -->
+    <figure class="project-modal__media">
+        <picture>
+            <source srcset="/images/KM/km1.png" type="image/png">
+            <img src="/images/KM/km1.png" alt="" width="1280" height="800" loading="eager" decoding="async"
+                fetchpriority="high">
+        </picture>
+    </figure>
+
+    <!-- Изображение №2 — подгружается следом -->
+    <figure class="project-modal__media">
+        <picture>
+            <source srcset="/images/KM/km2.png" type="image/png">
+            <img src="/images/KM/km2.png" alt="" width="1280" height="800" loading="lazy" decoding="async"
+                fetchpriority="low">
+        </picture>
+    </figure>
+    <!-- Изображение №3 — подгружается следом -->
+    <figure class="project-modal__media">
+        <picture>
+            <source srcset="/images/KM/km3.png" type="image/png">
+            <img src="/images/KM/km3.png" alt="" width="1280" height="800" loading="lazy" decoding="async"
+                fetchpriority="low">
+        </picture>
+    </figure>
+</article>

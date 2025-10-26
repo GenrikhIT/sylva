@@ -29,8 +29,8 @@
     <meta property="twitter:image" content="/images/twitter-image.jpg"> -->
 
     <!-- Favicon -->
-    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
 
     <!-- Critical CSS (только для первого экрана) -->
     <link rel="stylesheet" href="/css/critical.css">
@@ -44,77 +44,32 @@
     <noscript>
         <link rel="stylesheet" href="/css/main.css">
     </noscript>
-    <style>
-        /* Coming Soon Overlay - удалите этот блок когда не нужен */
-        .coming-soon-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #03281D 0%, #1a5a3e 100%);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #F2EEEC;
-        }
 
-        .coming-soon-content {
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-        }
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104167424', 'ym');
 
-        .coming-soon-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+    ym(104167424, 'init', {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104167424" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 
-        .coming-soon-subtitle {
-            font-size: 1.2rem;
-            opacity: 0;
-        }
-
-        .close-btn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: transparent;
-            font-size: 12px;
-            opacity: 0.2;
-            cursor: pointer;
-            padding: 8px;
-            transition: opacity 0.3s ease;
-        }
-
-        .close-btn:hover {
-            opacity: 0.6;
-        }
-
-        .coming-soon-overlay.hidden {
-            display: none;
-        }
-
-        body.no-scroll {
-            overflow: hidden;
-        }
-    </style>
 </head>
 
 <body>
     <!-- Coming Soon Overlay - просто удалите этот div когда не нужен -->
-    <div class="coming-soon-overlay" id="comingSoon">
+    <!-- <div class="coming-soon-overlay" id="comingSoon">
         <div class="coming-soon-content">
             <h1 class="coming-soon-title">Coming Soon</h1>
             <p class="coming-soon-subtitle">Сайт скоро будет доступен</p>
         </div>
         <button class="close-btn" onclick="hideComing()">войти</button>
-    </div>
+    </div> -->
     <!-- Cookie Notice -->
     <div class="cookie-notice" id="cookieNotice" role="dialog" aria-label="Уведомление о cookies" hidden>
         <div class="cookie-notice__content">
@@ -171,43 +126,74 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-            <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
-                <ul class="mobile-menu__list">
-                    <li><a href="#portfolio" class="nav__link">портфолио</a></li>
-                    <li><a href="#prices" class="nav__link">цены и услуги</a></li>
-                    <li><a href="#about" class="nav__link">о нас</a></li>
-                    <!-- <li><a href="#blog" class="nav__link">блог</a></li> -->
-                    <li><a href="#contacts" class="nav__link">контакты</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
+    </header>
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+            <ul class="mobile-menu__list">
+                <li><a href="#portfolio" class="nav__link">портфолио</a></li>
+                <li><a href="#prices" class="nav__link">цены и услуги</a></li>
+                <li><a href="#about" class="nav__link">о нас</a></li>
+                <!-- <li><a href="#blog" class="nav__link">блог</a></li> -->
+                <li><a href="#contacts" class="nav__link">контакты</a></li>
+            </ul>
+        </nav>
+        <nav class="mobile-menu__social-media" aria-label="Социальные сети">
+            <ul class="social-links">
+                <li><a href="https://wa.me/79859110013" target="_blank" rel="noopener noreferrer">
+                        <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M33.3375 9.0925C31.7329 7.47219 29.8218 6.18744 27.7156 5.31314C25.6095 4.43883 23.3504 3.99245 21.07 4C11.515 4 3.7275 11.7875 3.7275 21.3425C3.7275 24.405 4.5325 27.38 6.0375 30.005L3.5875 39L12.775 36.585C15.3125 37.9675 18.165 38.7025 21.07 38.7025C30.625 38.7025 38.4125 30.915 38.4125 21.36C38.4125 16.7225 36.61 12.365 33.3375 9.0925ZM21.07 35.7625C18.48 35.7625 15.9425 35.0625 13.72 33.75L13.195 33.435L7.735 34.87L9.1875 29.55L8.8375 29.0075C7.39821 26.7099 6.63412 24.0537 6.6325 21.3425C6.6325 13.3975 13.1075 6.9225 21.0525 6.9225C24.9025 6.9225 28.525 8.4275 31.2375 11.1575C32.5808 12.4943 33.6454 14.0845 34.3693 15.8358C35.0933 17.5872 35.4623 19.4649 35.455 21.36C35.49 29.305 29.015 35.7625 21.07 35.7625ZM28.98 24.9825C28.5425 24.7725 26.4075 23.7225 26.0225 23.565C25.62 23.425 25.34 23.355 25.0425 23.775C24.745 24.2125 23.9225 25.1925 23.6775 25.4725C23.4325 25.77 23.17 25.805 22.7325 25.5775C22.295 25.3675 20.895 24.895 19.25 23.425C17.955 22.27 17.0975 20.8525 16.835 20.415C16.59 19.9775 16.8 19.75 17.0275 19.5225C17.22 19.33 17.465 19.015 17.675 18.77C17.885 18.525 17.9725 18.3325 18.1125 18.0525C18.2525 17.755 18.1825 17.51 18.0775 17.3C17.9725 17.09 17.0975 14.955 16.7475 14.08C16.3975 13.24 16.03 13.345 15.7675 13.3275H14.9275C14.63 13.3275 14.175 13.4325 13.7725 13.87C13.3875 14.3075 12.2675 15.3575 12.2675 17.4925C12.2675 19.6275 13.825 21.6925 14.035 21.9725C14.245 22.27 17.0975 26.645 21.4375 28.5175C22.47 28.9725 23.275 29.235 23.905 29.4275C24.9375 29.76 25.8825 29.7075 26.635 29.6025C27.475 29.48 29.2075 28.5525 29.5575 27.5375C29.925 26.5225 29.925 25.665 29.8025 25.4725C29.68 25.28 29.4175 25.1925 28.98 24.9825Z"
+                                fill="#03281D" />
+                        </svg>
+
+                    </a></li>
+                <li><a href="https://t.me/Sylva_agency" target="_blank" rel="noopener noreferrer">
+                        <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M35 21.5C35 25.213 33.525 28.774 30.8995 31.3995C28.274 34.025 24.713 35.5 21 35.5C17.287 35.5 13.726 34.025 11.1005 31.3995C8.475 28.774 7 25.213 7 21.5C7 17.787 8.475 14.226 11.1005 11.6005C13.726 8.975 17.287 7.5 21 7.5C24.713 7.5 28.274 8.975 30.8995 11.6005C33.525 14.226 35 17.787 35 21.5ZM21 39C30.6652 39 38.5 31.1652 38.5 21.5C38.5 11.8348 30.6652 4 21 4C11.3348 4 3.5 11.8348 3.5 21.5C3.5 31.1652 11.3348 39 21 39ZM21.6265 16.9185C19.9255 17.6267 16.5241 19.0926 11.4222 21.3162C10.5928 21.6453 10.1588 21.9672 10.1202 22.2822C10.0538 22.8142 10.7205 23.0243 11.6287 23.3095L12.0103 23.432C12.9028 23.7225 14.1068 24.062 14.7315 24.076C15.2985 24.0877 15.9308 23.8543 16.6285 23.376C21.3955 20.156 23.856 18.5291 24.01 18.4952C24.1203 18.4707 24.2708 18.4393 24.3722 18.5303C24.4755 18.6213 24.465 18.7927 24.4545 18.84C24.388 19.1217 21.77 21.556 20.4155 22.8143C20.0142 23.1923 19.6157 23.5732 19.2202 23.957C18.3907 24.7568 17.7678 25.357 19.2553 26.337C20.762 27.331 22.2827 28.3215 23.7528 29.3697C24.4772 29.8877 25.1283 30.3498 25.9333 30.278C26.4005 30.2343 26.8835 29.795 27.1285 28.4825C27.7095 25.385 28.8488 18.6685 29.1112 15.9C29.1265 15.6704 29.1165 15.4397 29.0815 15.2122C29.0608 15.0292 28.9721 14.8605 28.833 14.7397C28.623 14.5682 28.2993 14.5333 28.1558 14.535C27.4978 14.5473 26.488 14.8973 21.6283 16.9185"
+                                fill="#03281D" />
+                        </svg>
+
+                    </a></li>
+                <li><a href="https://www.behance.net/sylva_agency" target="_blank" rel="noopener noreferrer">
+                        <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 35.5C24.713 35.5 28.274 34.025 30.8995 31.3995C33.525 28.774 35 25.213 35 21.5C35 17.787 33.525 14.226 30.8995 11.6005C28.274 8.975 24.713 7.5 21 7.5C17.287 7.5 13.726 8.975 11.1005 11.6005C8.475 14.226 7 17.787 7 21.5C7 25.213 8.475 28.774 11.1005 31.3995C13.726 34.025 17.287 35.5 21 35.5ZM21 39C11.3348 39 3.5 31.1652 3.5 21.5C3.5 11.8348 11.3348 4 21 4C30.6652 4 38.5 11.8348 38.5 21.5C38.5 31.1652 30.6652 39 21 39Z"
+                                fill="#03281D" />
+                            <path
+                                d="M28.0525 17.79H23.6687V16.7015H28.0543V17.7918L28.0525 17.79ZM20.7498 22.2577C21.0333 22.6952 21.1744 23.2267 21.1733 23.852C21.1756 24.4983 21.0146 25.0776 20.6903 25.5898C20.4735 25.95 20.1837 26.2609 19.8395 26.5023C19.4953 26.7437 19.1043 26.9104 18.6917 26.9915C18.1854 27.0932 17.6699 27.1424 17.1535 27.1385H12.25V16.25H17.5087C18.8341 16.2698 19.7738 16.6566 20.328 17.4103C20.6605 17.8723 20.8267 18.4264 20.8267 19.0727C20.8267 19.7377 20.6587 20.2721 20.3228 20.6758C20.1361 20.9033 19.8602 21.1098 19.495 21.2953C20.0492 21.4971 20.4674 21.8179 20.7498 22.2577ZM14.7613 20.5428H17.066C17.5385 20.5428 17.9218 20.4529 18.2158 20.2732C18.5109 20.0936 18.6585 19.7745 18.6585 19.316C18.6585 18.8085 18.4637 18.4737 18.074 18.3115C17.6567 18.188 17.2228 18.1302 16.7877 18.14H14.7613V20.5428ZM18.8807 23.6962C18.8807 23.1304 18.6497 22.7419 18.1877 22.5307C17.9276 22.4117 17.5647 22.3499 17.0992 22.3452H14.7613V25.2467H17.0625C17.535 25.2479 17.9025 25.1843 18.165 25.056C18.6422 24.8203 18.8807 24.3671 18.8807 23.6962ZM29.68 21.9253C29.7337 22.2822 29.7564 22.7985 29.7482 23.474H24.0695C24.0998 24.258 24.3717 24.8063 24.885 25.119C25.193 25.3162 25.5675 25.4142 26.0085 25.413C26.4717 25.4142 26.8491 25.2946 27.1407 25.0543C27.3138 24.9048 27.4559 24.7229 27.559 24.5188H29.6415C29.5867 24.9819 29.3347 25.4521 28.8855 25.9293C28.1855 26.6876 27.2073 27.0667 25.9508 27.0667C24.9506 27.0801 23.9778 26.7406 23.2032 26.1078C22.4111 25.4684 22.0144 24.4272 22.0133 22.984C22.0133 21.6307 22.3714 20.5941 23.0877 19.8743C23.8053 19.1521 24.7357 18.7916 25.879 18.7928C26.5557 18.7928 27.167 18.9141 27.713 19.1568C28.2567 19.4018 28.7052 19.7868 29.0588 20.3118C29.3784 20.7761 29.5855 21.3139 29.68 21.9253ZM27.6325 22.1283C27.594 21.5858 27.412 21.1751 27.0865 20.8962C26.7502 20.6107 26.32 20.4598 25.879 20.4728C25.354 20.4739 24.948 20.6232 24.661 20.9207C24.3728 21.2182 24.192 21.6208 24.1185 22.1283H27.6325Z"
+                                fill="#03281D" />
+                        </svg>
+
+                    </a></li>
+
+            </ul>
+        </nav>
+    </div>
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
         <section class="hero" aria-label="Главный экран">
-            <div class="hero__video" aria-hidden="true">
-                <video id="heroVideo" class="hero__video-el" preload="metadata" playsinline webkit-playsinline muted
-                    loop autoplay poster="/images/Poster.png">
-                    <!-- Мобайл -->
-                    <source src="/images/Sylva-video.mp4" type="video/mp4" media="(max-width: 767px)">
-                    <source src="/images/Sylva-video.webm" type="video/webm" media="(max-width: 767px)">
-                    <!-- Десктоп -->
-                    <source src="/images/Sylva-video.mp4" type="video/mp4">
-                    <source src="/images/Sylva-video.webm" type="video/webm">
-                </video>
+ <div class="hero__video" aria-hidden="true">
+    <!-- Статичное изображение-замена -->
+    <img class="hero__fallback-img" src="/images/bg-sylva480.png" alt="">
 
-            </div>
+    <!-- Ваше существующее видео -->
+    <video id="heroVideo" class="hero__video-el" preload="metadata" playsinline webkit-playsinline muted loop autoplay poster="/images/background-first-screen2.png">
+        <source src="/images/Sylva-video480.mp4" type="video/mp4" media="(max-width: 480px)">
+        <source src="/images/Sylva-video720.mp4" type="video/mp4" media="(max-width: 720px)">
+        <source src="/images/Sylva-video.mp4" type="video/mp4">
+    </video>
+</div>
             <div class="container">
 
                 <h1 class="hero__title">
-                    Сильный сайт — это фундамент<br>доверия клиентов,<br>репутации и роста.
+                    Сильный сайт — это фундамент<br>доверия клиентов, репутации и роста.
                 </h1>
                 <p class="hero__subtitle">
                     В каждом проекте мы соединяем эстетику, аналитику,<br>технологии и глубокое понимание целевой
-                    аудитории<br>чтобы создавать веб-решения, которые продают.
+                    аудитории чтобы<br>создавать веб-решения, которые продают.
                 </p>
                 <article class="hero__buttons">
                     <a href="/order.html" class="btn btn--primary hero__cta"><span>Заказать сайт</span></a>
@@ -217,7 +203,7 @@
 
                 <nav class="hero__social-media" aria-label="Социальные сети">
                     <ul class="social-links">
-                        <li><a href="#">
+                        <li><a href="https://wa.me/79859110013" target="_blank" rel="noopener noreferrer">
                                 <svg width="42" height="43" viewBox="0 0 42 43" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -226,7 +212,7 @@
                                 </svg>
 
                             </a></li>
-                        <li><a href="#">
+                        <li><a href="https://t.me/Sylva_agency" target="_blank" rel="noopener noreferrer">
                                 <svg width="42" height="43" viewBox="0 0 42 43" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -235,7 +221,7 @@
                                 </svg>
 
                             </a></li>
-                        <li><a href="#">
+                        <li><a href="https://www.behance.net/sylva_agency" target="_blank" rel="noopener noreferrer">
                                 <svg width="42" height="43" viewBox="0 0 42 43" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -251,11 +237,6 @@
                     </ul>
                 </nav>
 
-
-                <!-- 3D Sphere Container -->
-                <div class="hero__sphere" aria-hidden="true">
-                    <canvas id="sphereCanvas"></canvas>
-                </div>
             </div>
         </section>
 
@@ -263,11 +244,25 @@
         <section class="mission" aria-label="Наша миссия">
             <div class="container">
                 <h2 class="mission__title">
-                    Сайт формирует первое впечатление, транслирует ценности и работает на вашу репутацию 24/7.
-                    Это полноценный инструмент роста и масштабирования бизнеса.
-                    Он помогает увеличивать продажи, удерживать клиентов, выстраивать доверие к бренду и
-                    автоматизировать процессы.
+                    Сайт формирует первое впечатление.<br class="br-desktop"><br class="br-tablet">
+                    Это полноценный инструмент роста и<br class="br-desktop"><br class="br-tablet">масштабирования
+                    бизнеса.
                 </h2>
+                <!-- <h2 class="mission__title">
+                    Сайт формирует первое впечатление,<br class="br-desktop"><br class="br-tablet">транслирует ценности
+                    и <span class="mission__icon mission__icon--for" aria-hidden="true">
+                        <img src="/assets/rabotaet.svg" alt="">
+                        <span class="sr-only">работает на вашу</span>
+                    </span>
+                    <br class="br-desktop"><br class="br-tablet">
+                    <span class="mission__icon mission__icon--for" aria-hidden="true">
+                        <img src="/assets/reputazia.svg" alt="">
+                        <span class="sr-only">репутацию 24/7</span>
+                    </span>
+                    <br class="br-desktop"><br class="br-tablet">
+                    Это полноценный инструмент роста и<br class="br-desktop"><br
+                        class="br-tablet"><strong>масштабирования бизнеса</strong>
+                </h2> -->
             </div>
         </section>
 
@@ -277,38 +272,88 @@
         <section class="portfolio" id="portfolio" aria-label="Наши проекты">
             <div class="container">
                 <h2 class="section-title">Портфолио</h2>
-                <p class="section-subtitle">В <strong>SYLVA</strong> мы разрабатываем сайты под ключ, превращаем идеи в
+                <p class="section-subtitle">В <strong>Sylva</strong> мы разрабатываем сайты под ключ, превращаем идеи в
                     эффективные
                     digital-решения. </p>
 
                 <div class="portfolio__grid" role="list">
-                    <!-- Проект 1 -->
-                    <article class="portfolio__item" role="listitem">
-                        <a class="portfolio__card" href="/portfolio/project-1.html"
-                            data-modal-src="/portfolio/project-1.html" data-state-url="/portfolio/project-1">
+                     <article class="portfolio__item" role="listitem">
+                        <a class="portfolio__card" href="/portfolio/project-6.html"
+                            data-modal-src="/portfolio/project-6.html" data-state-url="/portfolio/project-6">
                             <div class="portfolio__image" aria-hidden="true">
-                                <img class="image_1" src="assets/MD/Group5.svg" alt="">
-                                <img class="image_2" src="assets/MD/2023.svg" alt="">
-                                <img class="image_3" src="assets/MD/Frame 1984078096.svg" alt="">
+                                <img class="image_1" src="assets/KM/roof.svg" alt="">
+                                <img class="image_2" src="assets/KM/logo.svg" alt="">
+                                <div class="image_3">
+                                    <img src="assets/KM/2025.svg" alt="">
+                                </div>
+                                <div class="image_4">
+                                    <img src="assets/KM/UI Design.svg" alt="">
+                                </div>
+                                <div class="image_5">
+                                    <img src="assets/KM/Custom Code.svg" alt="">
+                                </div>
+                                <img class="image_6" src="assets/KM/logo-sylva.svg" alt="">
+                                <img class="image_7" src="assets/KM/km-bg.png" alt="">
+                                <div class="image_8"></div>
+                                <div class="image_9"></div>
+                                <div class="image_10"></div>
+                                <div class="image_11"></div>
                             </div>
                             <div class="portfolio__details">
-                                <h3 class="portfolio__title">MD Cosmoshop</h3>
+                                <h3 class="portfolio__title">Кровельная мастерская</h3>
                             </div>
                         </a>
 
                         <div class="portfolio__description">
-                            <a class="portfolio__link portfolio__link--site" href="https://ya.ru" target="_blank"
-                                rel="noopener noreferrer">Посетить сайт</a>
+                            <a class="portfolio__link portfolio__link--site" href="https://www.тольконастоящийфальц.рф"
+                                target="_blank" rel="noopener noreferrer">Посетить сайт</a>
 
-                            <a class="portfolio__link portfolio__link--case" href="/portfolio/project-1.html"
-                                data-modal-src="/portfolio/project-1.html"
-                                data-state-url="/portfolio/project-1">Кейс</a>
+                            <a class="portfolio__link portfolio__link--case" href="/portfolio/project-6.html"
+                                data-modal-src="/portfolio/project-6.html"
+                                data-state-url="/portfolio/project-6">Кейс</a>
                         </div>
                     </article>
-
+                    <!-- Проект 1 -->
+                  
                     <!-- Проект 2 -->
                     <article class="portfolio__item" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-2.html"
+                            data-modal-src="/portfolio/project-2.html" data-state-url="/portfolio/project-2">
+                            <div class="portfolio__image" aria-hidden="true">
+                                <img class="image_1" src="assets/Aivadog/2025.svg" alt="">
+                                <img class="image_2" src="assets/Aivadog/5 1.png" alt="">
+                                <img class="image_3" src="assets/Aivadog/6 1.png" alt="">
+                                <div class="image_4">
+                                    <img class="image__4-design" src="/assets/Aivadog/design.svg" alt="">
+                                    <img src="/assets/Aivadog/lapa.png" alt="">
+                                    <img src="/assets/Aivadog/Tilda.svg" alt="">
+                                    <img src="/assets/Aivadog/lapa.png" alt="">
+                                    <img src="/assets/Aivadog/e-commers.svg" alt="">
+                                </div>
+                                <img class="image_5" src="assets/Aivadog/internet-shop.svg" alt="">
+                                <img class="image_6" src="assets/Aivadog/Logo.svg" alt="">
+                                <img class="image_7" src="assets/Aivadog/start-s.svg" alt="">
+                                <img class="image_8" src="assets/Aivadog/start-s.svg" alt="">
+                                <img class="image_9" src="assets/Aivadog/star-big.svg" alt="">
+                                <img class="image_10" src="assets/Aivadog/star-big.svg" alt="">
+                                <img class="image_11" src="assets/Aivadog/Logo-sylva.svg" alt="">
+                                <img class="image_12" src="assets/Aivadog/Vector 1.svg" alt="">
+
+                            </div>
+                            <div class="portfolio__details">
+                                <h3 class="portfolio__title">Интернет-магазин Aivadog</h3>
+                            </div>
+                        </a>
+
+                        <div class="portfolio__description">
+                            <a class="portfolio__link portfolio__link--site" href="https://aivadog.com" target="_blank"
+                                rel="noopener noreferrer">Посетить сайт</a>
+
+                            <a class="portfolio__link portfolio__link--case" href="/portfolio/project-2.html"
+                                data-modal-src="/portfolio/project-2.html"
+                                data-state-url="/portfolio/project-2">Кейс</a>
+                        </div>
+                        <!-- <a class="portfolio__card" href="/portfolio/project-2.html"
                             data-modal-src="/portfolio/project-2.html" data-state-url="/portfolio/project-2">
                             <div class="portfolio__image" aria-hidden="true">
                                 <img class="image_1" src="assets/SHE/SHE.svg" alt="">
@@ -329,22 +374,28 @@
                             <a class="portfolio__link portfolio__link--case" href="/portfolio/project-2.html"
                                 data-modal-src="/portfolio/project-2.html"
                                 data-state-url="/portfolio/project-2">Кейс</a>
-                        </div>
+                        </div> -->
                     </article>
 
                     <!-- Проект 3 -->
-                    <article class="portfolio__item" style="display: none;" role="listitem">
+                    <article class="portfolio__item" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-3.html"
                             data-modal-src="/portfolio/project-3.html" data-state-url="/portfolio/project-3">
-                            <div class="portfolio__image" aria-hidden="true"></div>
+                            <div class="portfolio__image" aria-hidden="true">
+                                <img class="image_1" src="assets/Uwo/2025.svg" alt="">
+                                <img class="image_2" src="assets/Uwo/design.svg" alt="">
+                                <img class="image_3" src="assets/Uwo/Logo-sylva.svg" alt="">
+                                <img class="image_4" src="assets/Uwo/Site.svg" alt="">
+                                <img class="image_5" src="assets/Uwo/uwo-logo.svg" alt="">
+                            </div>
                             <div class="portfolio__details">
-                                <h3 class="portfolio__title">Кровельные решения</h3>
+                                <h3 class="portfolio__title">Сайт-каталог дизайнерской мебели</h3>
                             </div>
                         </a>
 
                         <div class="portfolio__description">
-                            <a class="portfolio__link portfolio__link--site" href="https://example.com" target="_blank"
-                                rel="noopener noreferrer">Посетить сайт</a>
+                            <a class="portfolio__link portfolio__link--site" href="https://www.uwostudio.ru"
+                                target="_blank" rel="noopener noreferrer">Посетить сайт</a>
 
                             <a class="portfolio__link portfolio__link--case" href="/portfolio/project-3.html"
                                 data-modal-src="/portfolio/project-3.html"
@@ -353,18 +404,25 @@
                     </article>
 
                     <!-- Проект 4 -->
-                    <article class="portfolio__item" style="display: none;" role="listitem">
+                    <article class="portfolio__item" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-4.html"
                             data-modal-src="/portfolio/project-4.html" data-state-url="/portfolio/project-4">
-                            <div class="portfolio__image" aria-hidden="true"></div>
+                            <div class="portfolio__image" aria-hidden="true">
+                                <img class="image_1" src="assets/Forma/2023.svg" alt="">
+                                <img class="image_2" src="assets/Forma/Image.png" alt="">
+                                <img class="image_3" src="assets/Forma/internet-shop.svg" alt="">
+                                <img class="image_4" src="assets/Forma/Logo-sylva.svg" alt="">
+                                <img class="image_5" src="assets//Forma/Logo.png" alt="">
+                                <img class="image_6" src="assets//Forma/UI design.svg" alt="">
+                            </div>
                             <div class="portfolio__details">
-                                <h3 class="portfolio__title">Дикий Рыбный</h3>
+                                <h3 class="portfolio__title">Магазин украшений и изделий из кашемира</h3>
                             </div>
                         </a>
 
                         <div class="portfolio__description">
-                            <a class="portfolio__link portfolio__link--site" href="https://example.com" target="_blank"
-                                rel="noopener noreferrer">Посетить сайт</a>
+                            <!-- <a class="portfolio__link portfolio__link--site" href="https://example.com" target="_blank"
+                                rel="noopener noreferrer">Посетить сайт</a> -->
 
                             <a class="portfolio__link portfolio__link--case" href="/portfolio/project-4.html"
                                 data-modal-src="/portfolio/project-4.html"
@@ -376,15 +434,24 @@
                     <article class="portfolio__item" style="display: none;" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-5.html"
                             data-modal-src="/portfolio/project-5.html" data-state-url="/portfolio/project-5">
-                            <div class="portfolio__image" aria-hidden="true"></div>
+                            <div class="portfolio__image" aria-hidden="true">
+                                <div class="image_1"></div>
+                                <img class="image_2" src="assets/AC/2025.svg" alt="">
+                                <div class="image_3">
+                                    <img src="assets/AC/design.svg" alt="">
+                                </div>
+                                <img class="image_4" src="assets/AC/Landing.svg" alt="">
+                                <img class="image_5" src="assets/AC/Logo-sylva.svg" alt="">
+                                <img class="image_6" src="assets/AC/Logo.svg" alt="">
+                            </div>
                             <div class="portfolio__details">
-                                <h3 class="portfolio__title">AIVADOG</h3>
+                                <h3 class="portfolio__title">Лэндинг для школы косметологии</h3>
                             </div>
                         </a>
 
                         <div class="portfolio__description">
-                            <a class="portfolio__link portfolio__link--site" href="https://example.com" target="_blank"
-                                rel="noopener noreferrer">Посетить сайт</a>
+                            <a class="portfolio__link portfolio__link--site" href="https://mdschool.beauty"
+                                target="_blank" rel="noopener noreferrer">Посетить сайт</a>
 
                             <a class="portfolio__link portfolio__link--case" href="/portfolio/project-5.html"
                                 data-modal-src="/portfolio/project-5.html"
@@ -393,27 +460,32 @@
                     </article>
 
                     <!-- Проект 6 -->
-                    <article class="portfolio__item" style="display: none;" role="listitem">
-                        <a class="portfolio__card" href="/portfolio/project-6.html"
-                            data-modal-src="/portfolio/project-6.html" data-state-url="/portfolio/project-6">
-                            <div class="portfolio__image" aria-hidden="true"></div>
+                     <article class="portfolio__item" style="display: none;" role="listitem">
+                        <a class="portfolio__card" href="/portfolio/project-1.html"
+                            data-modal-src="/portfolio/project-1.html" data-state-url="/portfolio/project-1">
+                            <div class="portfolio__image" aria-hidden="true">
+                                <img class="image_1" src="assets/MD/Group5.svg" alt="">
+                                <img class="image_2" src="assets/MD/2023.svg" alt="">
+                                <img class="image_3" src="assets/MD/Frame 1984078096.svg" alt="">
+                            </div>
                             <div class="portfolio__details">
-                                <h3 class="portfolio__title">Academy Cosmetologic</h3>
+                                <h3 class="portfolio__title">MD Cosmoshop</h3>
                             </div>
                         </a>
 
                         <div class="portfolio__description">
-                            <a class="portfolio__link portfolio__link--site" href="https://example.com" target="_blank"
-                                rel="noopener noreferrer">Посетить сайт</a>
+                            <!-- <a class="portfolio__link portfolio__link--site" href="https://ya.ru" target="_blank"
+                                rel="noopener noreferrer">Посетить сайт</a> -->
 
-                            <a class="portfolio__link portfolio__link--case" href="/portfolio/project-6.html"
-                                data-modal-src="/portfolio/project-6.html"
-                                data-state-url="/portfolio/project-6">Кейс</a>
+                            <a class="portfolio__link portfolio__link--case" href="/portfolio/project-1.html"
+                                data-modal-src="/portfolio/project-1.html"
+                                data-state-url="/portfolio/project-1">Кейс</a>
                         </div>
                     </article>
 
+
                     <!-- Проект 7 -->
-                    <article class="portfolio__item" style="display: none;" role="listitem">
+                    <!-- <article class="portfolio__item" style="display: none;" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-7.html"
                             data-modal-src="/portfolio/project-7.html" data-state-url="/portfolio/project-7">
                             <div class="portfolio__image" aria-hidden="true"></div>
@@ -430,10 +502,10 @@
                                 data-modal-src="/portfolio/project-7.html"
                                 data-state-url="/portfolio/project-7">Кейс</a>
                         </div>
-                    </article>
+                    </article> -->
 
                     <!-- Проект 8 -->
-                    <article class="portfolio__item" style="display: none;" role="listitem">
+                    <!-- <article class="portfolio__item" style="display: none;" role="listitem">
                         <a class="portfolio__card" href="/portfolio/project-8.html"
                             data-modal-src="/portfolio/project-8.html" data-state-url="/portfolio/project-8">
                             <div class="portfolio__image" aria-hidden="true"></div>
@@ -450,7 +522,7 @@
                                 data-modal-src="/portfolio/project-8.html"
                                 data-state-url="/portfolio/project-8">Кейс</a>
                         </div>
-                    </article>
+                    </article> -->
                 </div>
 
                 <button type="button" class="btn btn--secondary portfolio__load-more">
@@ -474,7 +546,7 @@
                 <div class="prices__inner">
                     <!-- Decorative circles + CTA -->
                     <div class="prices__decor capabilities__decor is-hidden--sm-down" aria-hidden="true">
-                        <svg width="380" height="260" viewBox="0 0 420 260" class="js-circles" fill="none"
+                        <svg width="380" height="260" viewBox="0 0 380 260" class="js-circles" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <circle cx="130" cy="130" r="129.5" stroke="currentColor" opacity="0.2"></circle>
                             <circle cx="170" cy="130" r="129.5" stroke="currentColor" opacity="0.2"></circle>
@@ -711,87 +783,98 @@
 
 
         <!-- About Section -->
-        <section class=" about" id="about" aria-label="О компании">
+        <section class="about" id="about" aria-label="О компании">
             <div class="container">
                 <h2 class="section-title section-title--light">О нас</h2>
                 <p class="section-subtitle section-subtitle--light">
-                    Мы — ваш стратегический партнёр в создании и развитии бизнеса в
-                    интернете.
+                    Мы — ваш стратегический партнёр в создании и развитии бизнеса в интернете.
                 </p>
+
                 <div class="about__content">
-                    <p class="about__text">
-                        Мы - молодое digital-агентство с командой опытных профессионалов. У каждого за плечами от 3 до
-                        12 лет опыта в digital и разработке.
-                    </p>
-                    <p class="about__text">
-                        Над проектом работают программисты, дизайнеры, маркетологи, SEO и SMM специалисты, аналитики и
-                        тестировщики. Все работают в одной команде, поэтому нужный эксперт подключается точно в срок.
-                        Мы ценим долгосрочное сотрудничество - многие клиенты остаются с нами более 7 лет.
+                    <div class="about__content-inner">
+                        <div class="about__more-wrap">
+                            <div class="about__more-img">
+                                <img class="about__img-fade" src="/assets/Silva-for-about.svg" alt="">
+                            </div>
 
-                    </p>
-                    <div class="about__text" style="display: none;">
-                        <section>
-                            <h2>Как мы превращаем идеи в результаты</h2>
+                            <!-- по умолчанию скрыто классом is-collapsed -->
+                            <div class="about__more-text is-collapsed">
+                                <article class="about__process staggered" id="about-process">
+                                    <h3 class="reveal">Как мы превращаем идеи в результаты</h3>
 
-                            <ol>
-                                <li>
-                                    <strong>Изучаем бизнес клиента и его конкурентов.</strong> Анализируем потребности
-                                    целевой аудитории, рыночные тенденции и опыт отрасли, чтобы подобрать оптимальное
-                                    решение.
-                                </li>
+                                    <div class="step reveal">
+                                        <h4>1. Изучаем бизнес клиента и его конкурентов</h4>
+                                        <p>Анализируем потребности целевой аудитории, рыночные тенденции и опыт отрасли,
+                                            чтобы подобрать оптимальное решение.</p>
+                                    </div>
 
-                                <li>
-                                    <strong>Планируем и проектируем.</strong>
-                                    Разрабатываем структуру, выбираем технологии и создаем дизайн, который конвертирует
-                                    посетителей в клиентов.
-                                </li>
+                                    <div class="step reveal">
+                                        <h4>2. Планируем и проектируем</h4>
+                                        <p>Разрабатываем структуру, выбираем технологии и создаем дизайн, который
+                                            конвертирует посетителей в клиентов.</p>
+                                    </div>
 
-                                <li>
-                                    <strong>Программируем и интегрируем.</strong>
-                                    Работаем с CMS, такими как WordPress, Битрикс, Shopify, Modx, Joomla.
-                                    Front: JavaScript, TypeScript, HTML5/CSS3, Vue JS, React JS
-                                    Back: PHP, Laravel, Symfony, Yii
-                                    Используем конструкторы сайтов Tilda и Webflow для быстрых решений.
-                                </li>
+                                    <div class="step reveal">
+                                        <h4>3. Программируем и интегрируем</h4>
+                                        <p>Работаем с CMS, такими как WordPress, Битрикс, Shopify, Modx, Joomla.</p>
+                                        <p>Front: JavaScript, TypeScript, HTML5/CSS3, Vue JS, React JS</p>
+                                        <p>Back: PHP, Laravel, Symfony, Yii</p>
+                                        <p>Используем конструкторы сайтов Tilda и Webflow для быстрых решений.</p>
+                                    </div>
 
-                                <li>
-                                    <strong>Наполняем контентом</strong>
-                                    Добавляем тексты, изображения и видео, которые вовлекают посетителей и повышают
-                                    конверсии.
-                                    Требования SEO учитывается на всех этапах: продумываем структуру, заголовки,
-                                    добавление контента и другие технические детали, чтобы сайт был готов к продвижению.
-                                </li>
+                                    <div class="step reveal">
+                                        <h4>4. Наполняем контентом</h4>
+                                        <p>Добавляем тексты, изображения и видео, которые вовлекают посетителей и
+                                            повышают конверсии.</p>
+                                        <p>Требования SEO учитываются на всех этапах: продумываем структуру, заголовки,
+                                            добавление контента и другие технические детали, чтобы сайт был готов к
+                                            продвижению.</p>
+                                    </div>
 
-                                <li>
-                                    <strong>Запускаем и тестируем</strong>
-                                    Проверяем сайт, исправляем ошибки и финально тестируем, чтобы UX был удобным, а SEO
-                                    — эффективным.
-                                </li>
+                                    <div class="step reveal">
+                                        <h4>5. Запускаем и тестируем</h4>
+                                        <p>Проверяем сайт, исправляем ошибки и финально тестируем, чтобы UX был удобным,
+                                            а SEO — эффективным.</p>
+                                    </div>
 
-                                <li>
-                                    <strong>После запуска продолжаем работу с продвижением и внедряем сквозную аналитику
-                                        для оценки результатов и поиска точек роста.</strong>
-                                </li>
-                            </ol>
-                        </section>
-                    </div>
-                    <button type="button" class="btn btn--ghost about__cta">
-                        <span>Узнать больше</span>
-                    </button>
-                    <div class="stats">
-                        <div class="stats__item">
-                            <span class="stats__number">20+</span>
-                            <span class="stats__label">Проектов запущено<br>с начала
-                                работы</span>
+                                    <div class="step reveal">
+                                        <h4>6. После запуска</h4>
+                                        <p>Продолжаем работу с продвижением и внедряем сквозную аналитику для оценки
+                                            результатов и поиска точек роста.</p>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <button type="button" class="btn btn--ghost about__cta-more is-hidden"
+                                aria-controls="about-process">
+                                <span>Узнать меньше</span>
+                            </button>
+                        </div>
+
+                        <div class="about__text-wrap">
+                            <p class="about__text">
+                                Мы - молодое digital-агентство с командой опытных профессионалов. У каждого за плечами
+                                от 3 до 12 лет опыта в digital и разработке.
+                            </p>
+                            <p class="about__text">
+                                Над проектом работают программисты, дизайнеры, маркетологи, SEO и SMM специалисты,
+                                аналитики и тестировщики. Все работают в одной команде, поэтому нужный эксперт
+                                подключается точно в срок.
+                            </p>
+                            <button type="button" class="btn btn--ghost about__cta" aria-controls="about-process"
+                                aria-expanded="false">
+                                <span>Узнать больше</span>
+                            </button>
+                            <p class="about__text">
+                                Мы ценим долгосрочное сотрудничество - многие клиенты остаются с нашими специалистами
+                                более 7 лет.
+                            </p>
                         </div>
                     </div>
                 </div>
-
-                <div class="about__decoration" aria-hidden="true">
-                    <!-- Decorative circles -->
-                </div>
             </div>
         </section>
+
 
         <!-- FAQ Section -->
         <section class="faq" id="faq" aria-label="FAQ">
@@ -931,7 +1014,7 @@
 
                     <!-- Decorative rings -->
                     <div class="faq__decor capabilities__decor is-hidden--sm-down" aria-hidden="true">
-                        <svg width="420" height="260" viewBox="0 0 420 260" fill="none"
+                        <svg width="380" height="260" viewBox="0 0 380 260" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <circle cx="130" cy="130" r="129.5" stroke="currentColor" opacity="0.2" />
                             <circle cx="170" cy="130" r="129.5" stroke="currentColor" opacity="0.2" />
@@ -982,7 +1065,24 @@
 
                 </div>
         </section> -->
-
+        <!-- Mission Section before footer-->
+        <section class="mission mission__second" aria-label="Наша миссия">
+            <div class="container">
+                <h2 class="mission__title">
+                    Сильный сайт увеличивает продажи,<br class="br-desktop"><br class="br-tablet">удерживает клиентов и
+                    вызывает<br class="br-desktop"><br class="br-tablet">доверие к бренду.
+                </h2>
+                <!-- <h2 class="mission__title">
+                    Сильный сайт помогает <strong>увеличивать</strong><br class="br-desktop"><br
+                        class="br-tablet">продажи, удерживать клиентов,<br class="br-desktop"><br
+                        class="br-tablet">выстраивать доверие
+                    <span class="mission__icon mission__icon--for" aria-hidden="true">
+                        <img src="/assets/k-brendu.svg" alt="">
+                        <span class="sr-only">к бренду</span>
+                    </span> и<br class="br-desktop"><br class="br-tablet">автоматизировать процессы
+                </h2> -->
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -993,21 +1093,24 @@
                 <a href="mailto:sylva.d.agency@gmail.com" class="footer__email">sylva.d.agency@gmail.com</a>
                 <a href="tel:+79859110013" class="footer__phone">+7 985 911 00 13</a>
                 <div class="footer__socials">
-                    <a href="#" class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
+                    <a href="https://wa.me/79859110013" target="_blank" rel="noopener noreferrer"
+                        class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M33.3375 8.59259C31.7329 6.97228 29.8218 5.68754 27.7156 4.81323C25.6095 3.93892 23.3504 3.49254 21.07 3.50009C11.515 3.50009 3.72749 11.2876 3.72749 20.8426C3.72749 23.9051 4.53249 26.8801 6.03749 29.5051L3.58749 38.5001L12.775 36.0851C15.3125 37.4676 18.165 38.2026 21.07 38.2026C30.625 38.2026 38.4125 30.4151 38.4125 20.8601C38.4125 16.2226 36.61 11.8651 33.3375 8.59259ZM21.07 35.2626C18.48 35.2626 15.9425 34.5626 13.72 33.2501L13.195 32.9351L7.73499 34.3701L9.18749 29.0501L8.83749 28.5076C7.3982 26.2099 6.63411 23.5538 6.63249 20.8426C6.63249 12.8976 13.1075 6.42259 21.0525 6.42259C24.9025 6.42259 28.525 7.92759 31.2375 10.6576C32.5808 11.9944 33.6454 13.5845 34.3693 15.3359C35.0933 17.0873 35.4623 18.965 35.455 20.8601C35.49 28.8051 29.015 35.2626 21.07 35.2626ZM28.98 24.4826C28.5425 24.2726 26.4075 23.2226 26.0225 23.0651C25.62 22.9251 25.34 22.8551 25.0425 23.2751C24.745 23.7126 23.9225 24.6926 23.6775 24.9726C23.4325 25.2701 23.17 25.3051 22.7325 25.0776C22.295 24.8676 20.895 24.3951 19.25 22.9251C17.955 21.7701 17.0975 20.3526 16.835 19.9151C16.59 19.4776 16.8 19.2501 17.0275 19.0226C17.22 18.8301 17.465 18.5151 17.675 18.2701C17.885 18.0251 17.9725 17.8326 18.1125 17.5526C18.2525 17.2551 18.1825 17.0101 18.0775 16.8001C17.9725 16.5901 17.0975 14.4551 16.7475 13.5801C16.3975 12.7401 16.03 12.8451 15.7675 12.8276H14.9275C14.63 12.8276 14.175 12.9326 13.7725 13.3701C13.3875 13.8076 12.2675 14.8576 12.2675 16.9926C12.2675 19.1276 13.825 21.1926 14.035 21.4726C14.245 21.7701 17.0975 26.1451 21.4375 28.0176C22.47 28.4726 23.275 28.7351 23.905 28.9276C24.9375 29.2601 25.8825 29.2076 26.635 29.1026C27.475 28.9801 29.2075 28.0526 29.5575 27.0376C29.925 26.0226 29.925 25.1651 29.8025 24.9726C29.68 24.7801 29.4175 24.6926 28.98 24.4826Z"
                                 fill="#03281D" />
                         </svg>
                     </a>
-                    <a href="#" class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
+                    <a href="https://t.me/Sylva_agency" target="_blank" rel="noopener noreferrer"
+                        class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M35 21C35 24.713 33.525 28.274 30.8995 30.8995C28.274 33.525 24.713 35 21 35C17.287 35 13.726 33.525 11.1005 30.8995C8.475 28.274 7 24.713 7 21C7 17.287 8.475 13.726 11.1005 11.1005C13.726 8.475 17.287 7 21 7C24.713 7 28.274 8.475 30.8995 11.1005C33.525 13.726 35 17.287 35 21ZM21 38.5C30.6652 38.5 38.5 30.6652 38.5 21C38.5 11.3348 30.6652 3.5 21 3.5C11.3348 3.5 3.5 11.3348 3.5 21C3.5 30.6652 11.3348 38.5 21 38.5ZM21.6265 16.4185C19.9255 17.1267 16.5241 18.5926 11.4222 20.8162C10.5928 21.1453 10.1588 21.4672 10.1202 21.7822C10.0538 22.3142 10.7205 22.5243 11.6287 22.8095L12.0103 22.932C12.9028 23.2225 14.1068 23.562 14.7315 23.576C15.2985 23.5877 15.9308 23.3543 16.6285 22.876C21.3955 19.656 23.856 18.0291 24.01 17.9952C24.1203 17.9707 24.2708 17.9393 24.3722 18.0303C24.4755 18.1213 24.465 18.2927 24.4545 18.34C24.388 18.6217 21.77 21.056 20.4155 22.3143C20.0142 22.6923 19.6157 23.0732 19.2202 23.457C18.3907 24.2568 17.7678 24.857 19.2553 25.837C20.762 26.831 22.2827 27.8215 23.7528 28.8697C24.4772 29.3877 25.1283 29.8498 25.9333 29.778C26.4005 29.7343 26.8835 29.295 27.1285 27.9825C27.7095 24.885 28.8488 18.1685 29.1112 15.4C29.1265 15.1704 29.1165 14.9397 29.0815 14.7122C29.0608 14.5292 28.9721 14.3605 28.833 14.2397C28.623 14.0682 28.2993 14.0333 28.1558 14.035C27.4978 14.0473 26.488 14.3973 21.6283 16.4185"
                                 fill="#03281D" />
                         </svg>
                     </a>
-                    <a href="#" class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
+                    <a href="https://www.behance.net/sylva_agency" target="_blank" rel="noopener noreferrer"
+                        class="footer__social-link"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M21 35C24.713 35 28.274 33.525 30.8995 30.8995C33.525 28.274 35 24.713 35 21C35 17.287 33.525 13.726 30.8995 11.1005C28.274 8.475 24.713 7 21 7C17.287 7 13.726 8.475 11.1005 11.1005C8.475 13.726 7 17.287 7 21C7 24.713 8.475 28.274 11.1005 30.8995C13.726 33.525 17.287 35 21 35ZM21 38.5C11.3348 38.5 3.5 30.6652 3.5 21C3.5 11.3348 11.3348 3.5 21 3.5C30.6652 3.5 38.5 11.3348 38.5 21C38.5 30.6652 30.6652 38.5 21 38.5Z"
@@ -1050,7 +1153,7 @@
                 <p>Получить консультацию</p>
                 <div class="cta-modal__options">
                     <!-- Замените ссылки на ваши -->
-                    <a class="cta-opt" href="" target="_blank" rel="noopener noreferrer">
+                    <a class="cta-opt" href="https://wa.me/79859110013" target="_blank" rel="noopener noreferrer">
                         <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M33.3375 9.0925C31.7329 7.47219 29.8218 6.18744 27.7156 5.31314C25.6095 4.43883 23.3504 3.99245 21.07 4C11.515 4 3.7275 11.7875 3.7275 21.3425C3.7275 24.405 4.5325 27.38 6.0375 30.005L3.5875 39L12.775 36.585C15.3125 37.9675 18.165 38.7025 21.07 38.7025C30.625 38.7025 38.4125 30.915 38.4125 21.36C38.4125 16.7225 36.61 12.365 33.3375 9.0925ZM21.07 35.7625C18.48 35.7625 15.9425 35.0625 13.72 33.75L13.195 33.435L7.735 34.87L9.1875 29.55L8.8375 29.0075C7.39821 26.7099 6.63412 24.0537 6.6325 21.3425C6.6325 13.3975 13.1075 6.9225 21.0525 6.9225C24.9025 6.9225 28.525 8.4275 31.2375 11.1575C32.5808 12.4943 33.6454 14.0845 34.3693 15.8358C35.0933 17.5872 35.4623 19.4649 35.455 21.36C35.49 29.305 29.015 35.7625 21.07 35.7625ZM28.98 24.9825C28.5425 24.7725 26.4075 23.7225 26.0225 23.565C25.62 23.425 25.34 23.355 25.0425 23.775C24.745 24.2125 23.9225 25.1925 23.6775 25.4725C23.4325 25.77 23.17 25.805 22.7325 25.5775C22.295 25.3675 20.895 24.895 19.25 23.425C17.955 22.27 17.0975 20.8525 16.835 20.415C16.59 19.9775 16.8 19.75 17.0275 19.5225C17.22 19.33 17.465 19.015 17.675 18.77C17.885 18.525 17.9725 18.3325 18.1125 18.0525C18.2525 17.755 18.1825 17.51 18.0775 17.3C17.9725 17.09 17.0975 14.955 16.7475 14.08C16.3975 13.24 16.03 13.345 15.7675 13.3275H14.9275C14.63 13.3275 14.175 13.4325 13.7725 13.87C13.3875 14.3075 12.2675 15.3575 12.2675 17.4925C12.2675 19.6275 13.825 21.6925 14.035 21.9725C14.245 22.27 17.0975 26.645 21.4375 28.5175C22.47 28.9725 23.275 29.235 23.905 29.4275C24.9375 29.76 25.8825 29.7075 26.635 29.6025C27.475 29.48 29.2075 28.5525 29.5575 27.5375C29.925 26.5225 29.925 25.665 29.8025 25.4725C29.68 25.28 29.4175 25.1925 28.98 24.9825Z"
@@ -1058,14 +1161,15 @@
                         </svg>
                     </a>
 
-                    <a class="cta-opt" href="" target="_blank" rel="noopener noreferrer">
+                    <a class="cta-opt" href="https://t.me/Sylva_agency" target="_blank" rel="noopener noreferrer">
                         <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M35 21.5C35 25.213 33.525 28.774 30.8995 31.3995C28.274 34.025 24.713 35.5 21 35.5C17.287 35.5 13.726 34.025 11.1005 31.3995C8.475 28.774 7 25.213 7 21.5C7 17.787 8.475 14.226 11.1005 11.6005C13.726 8.975 17.287 7.5 21 7.5C24.713 7.5 28.274 8.975 30.8995 11.6005C33.525 14.226 35 17.787 35 21.5ZM21 39C30.6652 39 38.5 31.1652 38.5 21.5C38.5 11.8348 30.6652 4 21 4C11.3348 4 3.5 11.8348 3.5 21.5C3.5 31.1652 11.3348 39 21 39ZM21.6265 16.9185C19.9255 17.6267 16.5241 19.0926 11.4222 21.3162C10.5928 21.6453 10.1588 21.9672 10.1202 22.2822C10.0538 22.8142 10.7205 23.0243 11.6287 23.3095L12.0103 23.432C12.9028 23.7225 14.1068 24.062 14.7315 24.076C15.2985 24.0877 15.9308 23.8543 16.6285 23.376C21.3955 20.156 23.856 18.5291 24.01 18.4952C24.1203 18.4707 24.2708 18.4393 24.3722 18.5303C24.4755 18.6213 24.465 18.7927 24.4545 18.84C24.388 19.1217 21.77 21.556 20.4155 22.8143C20.0142 23.1923 19.6157 23.5732 19.2202 23.957C18.3907 24.7568 17.7678 25.357 19.2553 26.337C20.762 27.331 22.2827 28.3215 23.7528 29.3697C24.4772 29.8877 25.1283 30.3498 25.9333 30.278C26.4005 30.2343 26.8835 29.795 27.1285 28.4825C27.7095 25.385 28.8488 18.6685 29.1112 15.9C29.1265 15.6704 29.1165 15.4397 29.0815 15.2122C29.0608 15.0292 28.9721 14.8605 28.833 14.7397C28.623 14.5682 28.2993 14.5333 28.1558 14.535C27.4978 14.5473 26.488 14.8973 21.6283 16.9185"
                                 fill="#03281D" />
                         </svg>
                     </a>
-                    <a class="cta-opt" href="" target="_blank" rel="noopener noreferrer">
+                    <a class="cta-opt" href="https://www.behance.net/sylva_agency" target="_blank"
+                        rel="noopener noreferrer">
                         <svg width="42" height="43" viewBox="0 0 42 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M21 35.5C24.713 35.5 28.274 34.025 30.8995 31.3995C33.525 28.774 35 25.213 35 21.5C35 17.787 33.525 14.226 30.8995 11.6005C28.274 8.975 24.713 7.5 21 7.5C17.287 7.5 13.726 8.975 11.1005 11.6005C8.475 14.226 7 17.787 7 21.5C7 25.213 8.475 28.774 11.1005 31.3995C13.726 34.025 17.287 35.5 21 35.5ZM21 39C11.3348 39 3.5 31.1652 3.5 21.5C3.5 11.8348 11.3348 4 21 4C30.6652 4 38.5 11.8348 38.5 21.5C38.5 31.1652 30.6652 39 21 39Z"
@@ -1102,14 +1206,14 @@
         }
     }
     </script>
-    <script>
+    <!-- <script>
         function hideComing() {
             document.getElementById('comingSoon').classList.add('hidden');
             document.body.classList.remove('no-scroll');
         }
+// Удалить три фрагмента style div script
+    </script> -->
 
-        // Удалить три фрагмента style div script
-    </script>
 </body>
 
 </html>

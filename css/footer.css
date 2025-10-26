@@ -1,39 +1,98 @@
 /* Extracted footer styles */
-.footer{
+.footer {
   padding: 25px 0;
-}.footer__content{
+}
+.footer__content {
   display: flex;
   flex-direction: column;
-}.footer__title{
+}
+.footer__title {
   font-size: 4.375rem;
   color: var(--color-secondary);
-}.footer__title:hover{
+}
+.footer__title:hover {
   color: var(--color-primary);
-}.footer__email{
+}
+.footer__email {
   font-size: 4.375rem;
   font-weight: 700;
-}.footer__email:hover{
+}
+.footer__email:hover {
   text-decoration: underline;
-}.footer__phone{
+}
+.footer__phone {
   font-size: 4.375rem;
   margin-top: 50px;
   margin-left: auto;
-}.footer__phone:hover{
+}
+.footer__phone:hover {
   color: var(--color-secondary);
-}.footer__socials{
+}
+.footer__socials {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
   margin: 25px 0 50px auto;
-}.footer__socials a:hover path{
+}
+.footer__socials a:hover path {
   fill: var(--color-secondary);
-}.footer__bottom{
+}
+.footer__bottom {
   display: flex;
   gap: 10px;
   font-size: 0.75rem;
   margin-left: auto;
   margin-bottom: 25px;
-}.footer__privacy:hover{
+}
+.footer__privacy:hover {
   color: var(--color-secondary);
+}
+@media (max-width: 1279px) {
+  .footer__title,
+  .footer__email,
+  .footer__phone {
+    font-size: 3.43rem;
+  }
+}
+
+/* ширина меньше 1024px */
+@media (max-width: 1023px) {
+  .footer__title,
+  .footer__email,
+  .footer__phone {
+    font-size: 3.125rem;
+  }
+  .footer__phone {
+    margin-top: 25px;
+  }
+  .footer__socials {
+    margin-bottom: 25px;
+  }
+
+  .footer__bottom {
+    margin-bottom: 0;
+  }
+}
+
+/* ширина меньше 768px */
+@media (max-width: 767px) {
+  .footer__email {
+    font-size: 1.875rem;
+  }
+
+  .footer__phone {
+    font-size: 2.18rem;
+  }
+}
+
+/* ширина меньше 480px */
+@media (max-width: 479px) {
+  .footer__title {
+    font-size: 1.875rem;
+  }
+  .footer__email,
+  .footer__phone {
+    font-size: 1.25rem;
+  }
 }
